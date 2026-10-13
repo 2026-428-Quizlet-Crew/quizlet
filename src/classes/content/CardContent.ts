@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { ContentFormat } from "@/classes";
+import type { ContentFormat } from "./ContentFormat";
 import type { CardContentDto } from "./CardContentDto";
 
 /**
