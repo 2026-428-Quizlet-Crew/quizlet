@@ -3,9 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useCurrentUser } from "@/auth/AuthProvider";
-import { type CardData, Deck } from "@/classes";
+import { type CardDto, Deck } from "@/classes";
 import CardEditor from "./CardEditor";
-import { DeckDraft, emptyCardData } from "./DeckDraft";
+import { DeckDraft, emptyCardDto } from "./DeckDraft";
 import { buttonStyles } from "@/components/ui";
 import {
   STORAGE_LOCATION_INFO,
@@ -28,14 +28,14 @@ const DeckForm = ({ existing }: DeckFormProps) => {
   const [errors, setErrors] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
 
-  const updateCard = (index: number, card: CardData) =>
+  const updateCard = (index: number, card: CardDto) =>
     setDraft((d) => ({ ...d, cards: d.cards.with(index, card) }));
 
   const removeCard = (index: number) =>
     setDraft((d) => ({ ...d, cards: d.cards.toSpliced(index, 1) }));
 
   const addCard = () =>
-    setDraft((d) => ({ ...d, cards: [...d.cards, emptyCardData()] }));
+    setDraft((d) => ({ ...d, cards: [...d.cards, emptyCardDto()] }));
 
   const run = async (action: () => Promise<void>) => {
     setBusy(true);
