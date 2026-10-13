@@ -1,6 +1,6 @@
 import {
   Card,
-  type CardData,
+  type CardDto,
   CardType,
   ContentFormat,
   type Deck,
@@ -13,10 +13,10 @@ import {
  */
 export interface DeckDraft {
   name: string;
-  cards: CardData[];
+  cards: CardDto[];
 }
 
-export const emptyCardData = (): CardData => ({
+export const emptyCardDto = (): CardDto => ({
   id: newId(),
   type: CardType.Definition,
   question: { format: ContentFormat.Plain, source: "" },
@@ -25,15 +25,15 @@ export const emptyCardData = (): CardData => ({
 
 export const DeckDraft = {
   empty(): DeckDraft {
-    return { name: "", cards: [emptyCardData()] };
+    return { name: "", cards: [emptyCardDto()] };
   },
 
   fromDeck(deck: Deck): DeckDraft {
-    return { name: deck.name, cards: deck.cards.map((card) => card.toJSON()) };
+    return { name: deck.name, cards: deck.cards.map((card) => card.toDto()) };
   },
 
   toCards(draft: DeckDraft): Card[] {
-    return draft.cards.map(Card.fromJSON);
+    return draft.cards.map(Card.fromDto);
   },
 
   /** Returns a list of problems; empty when the draft can be saved. */

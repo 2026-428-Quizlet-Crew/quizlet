@@ -1,21 +1,20 @@
 import { CardType, isCardType } from "./CardType";
-import type { CardContent, CardContentData } from "../content/CardContent";
+import type { CardDto } from "./CardDto";
+import type { CardContent } from "../content/CardContent";
 import { CardContentFactory } from "../content/CardContentFactory";
+import type { CardContentDto } from "../content/CardContentDto";
 import { newId, type UUID } from "../types";
 
 /**
  * Shape of a card. `C` is the content type: live {@link CardContent} instances
- * by default, or {@link CardContentData} for the serialized form.
+ * by default, or {@link CardContentDto} for the DTO.
  */
-export interface ICard<C extends CardContent | CardContentData = CardContent> {
+export interface ICard<C extends CardContent | CardContentDto = CardContent> {
   id: UUID;
   question: C;
   answer: C;
   type: CardType;
 }
-
-/** Serialized form of a {@link Card}. */
-export type CardData = ICard<CardContentData>;
 
 export class Card implements ICard {
   readonly id: UUID;
@@ -38,21 +37,26 @@ export class Card implements ICard {
     return new Card({ id: newId(), question, answer, type });
   }
 
-  static fromJSON(data: CardData): Card {
+  static fromDto(dto: CardDto): Card {
     return new Card({
-      id: data.id,
-      question: CardContentFactory.fromJSON(data.question),
-      answer: CardContentFactory.fromJSON(data.answer),
-      type: isCardType(data.type) ? data.type : CardType.Definition,
+      id: dto.id,
+      question: CardContentFactory.fromDto(dto.question),
+      answer: CardContentFactory.fromDto(dto.answer),
+      type: isCardType(dto.type) ? dto.type : CardType.Definition,
     });
   }
 
-  toJSON(): CardData {
+  toDto(): CardDto {
     return {
       id: this.id,
-      question: this.question.toJSON(),
-      answer: this.answer.toJSON(),
+      question: this.question.toDto(),
+      answer: this.answer.toDto(),
       type: this.type,
     };
+  }
+
+  /** Called by `JSON.stringify`, so stringifying a card always yields its DTO. */
+  toJSON(): CardDto {
+    return this.toDto();
   }
 }

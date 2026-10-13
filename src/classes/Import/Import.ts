@@ -1,13 +1,9 @@
 /*
 TODO: implement importing!
-Use CardData and DeckData (NOT Card and Deck!!!)
+Use CardDto and DeckDto (NOT Card and Deck!!!)
  */
 
 // Maybe use an abstract class?
-export interface Import {
+export interface Import {}
 
-}
-
-export class JsonImport implements Import {
-
-}
+export class JsonImport implements Import {}
