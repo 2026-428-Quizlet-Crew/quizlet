@@ -19,3 +19,16 @@ export { Deck } from "./Deck/Deck";
 export type { DeckDto } from "./Deck/DeckDto";
 export { QuizSession } from "./Quiz/QuizSession";
 export { newId, type UUID } from "./types";
+export {
+  DeckFileFormat,
+  EXCLUDED_DECK_FIELDS,
+  type DeckPlacement,
+  type ImportResult,
+} from "./DeckFile/DeckFileFormat";
+export { JsonDeckFormat } from "./DeckFile/JsonDeckFormat";
+export {
+  ACCEPTED_DECK_FILES,
+  DECK_FILE_FORMATS,
+  formatForFile,
+  jsonDeckFormat,
+} from "./DeckFile/formats";
