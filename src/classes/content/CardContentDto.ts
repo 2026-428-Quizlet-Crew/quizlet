@@ -1,4 +1,4 @@
-import type { ContentFormat } from "@/classes";
+import type { ContentFormat } from "../content/ContentFormat";
 
 /** Data transfer object for a {@link CardContent}: what gets stored or sent to the backend. */
 export interface CardContentDto {

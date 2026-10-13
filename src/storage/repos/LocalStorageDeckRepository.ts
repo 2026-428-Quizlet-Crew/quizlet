@@ -1,6 +1,6 @@
 import { Deck, type DeckDto, type UUID } from "@/classes";
 import type { DeckRepository } from "./DeckRepository";
-import { StorageLocation } from "@/storage";
+import { StorageLocation } from "../StorageLocation";
 
 const STORAGE_KEY = "quizlet-bb.decks";
 
