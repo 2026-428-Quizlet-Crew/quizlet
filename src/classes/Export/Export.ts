@@ -1,13 +1,9 @@
 /*
 TODO: implement exporting!
-Use CardData and DeckData (NOT Card and Deck!!!)
+Use CardDto and DeckDto (NOT Card and Deck!!!)
  */
 
 // Maybe use an abstract class?
-export interface Export {
+export interface Export {}
 
-}
-
-export class JsonExport implements Export {
-
-}
+export class JsonExport implements Export {}

@@ -1,4 +1,5 @@
-import type { CardContent, CardContentData } from "./CardContent";
+import type { CardContent } from "./CardContent";
+import type { CardContentDto } from "./CardContentDto";
 import { CodeContent } from "./CodeContent";
 import { ContentFormat, isContentFormat } from "./ContentFormat";
 import { LatexContent } from "./LatexContent";
@@ -19,10 +20,10 @@ export const CardContentFactory = {
     return new CONSTRUCTORS[format](source);
   },
 
-  fromJSON(data: CardContentData): CardContent {
-    const format = isContentFormat(data.format)
-      ? data.format
+  fromDto(dto: CardContentDto): CardContent {
+    const format = isContentFormat(dto.format)
+      ? dto.format
       : ContentFormat.Plain;
-    return CardContentFactory.create(format, data.source ?? "");
+    return CardContentFactory.create(format, dto.source ?? "");
   },
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  type CardContentData,
+  type CardContentDto,
   CONTENT_FORMAT_INFO,
   CONTENT_FORMATS,
   type ContentFormat,
@@ -9,8 +9,8 @@ import {
 
 interface ContentEditorProps {
   label: string;
-  value: CardContentData;
-  onChange: (value: CardContentData) => void;
+  value: CardContentDto;
+  onChange: (value: CardContentDto) => void;
 }
 
 /** Edits one side of a card: its format and raw source. */

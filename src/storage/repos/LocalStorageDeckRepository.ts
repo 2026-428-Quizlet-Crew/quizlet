@@ -1,25 +1,25 @@
-import { Deck, type DeckData, type UUID } from "@/classes";
+import { Deck, type DeckDto, type UUID } from "@/classes";
 import type { DeckRepository } from "./DeckRepository";
 import { StorageLocation } from "@/storage";
 
 const STORAGE_KEY = "quizlet-bb.decks";
 
-type StoredDecks = Record<UUID, DeckData>;
+type StoredDeckDtos = Record<UUID, DeckDto>;
 
 export class LocalStorageDeckRepository implements DeckRepository {
   readonly location = StorageLocation.Local;
 
   async list(): Promise<Deck[]> {
-    return Object.values(this.read()).map(Deck.fromJSON);
+    return Object.values(this.read()).map(Deck.fromDto);
   }
 
   async get(id: UUID): Promise<Deck | null> {
-    const data = this.read()[id];
-    return data ? Deck.fromJSON(data) : null;
+    const dto = this.read()[id];
+    return dto ? Deck.fromDto(dto) : null;
   }
 
   async save(deck: Deck): Promise<void> {
-    this.write({ ...this.read(), [deck.id]: deck.toJSON() });
+    this.write({ ...this.read(), [deck.id]: deck.toDto() });
   }
 
   async delete(id: UUID): Promise<void> {
@@ -28,18 +28,18 @@ export class LocalStorageDeckRepository implements DeckRepository {
     this.write(decks);
   }
 
-  private read(): StoredDecks {
+  private read(): StoredDeckDtos {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return {};
     try {
-      return JSON.parse(raw) as StoredDecks;
+      return JSON.parse(raw) as StoredDeckDtos;
     } catch (error) {
       console.error("Could not parse saved decks; ignoring them.", error);
       return {};
     }
   }
 
-  private write(decks: StoredDecks): void {
+  private write(decks: StoredDeckDtos): void {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(decks));
   }
 }

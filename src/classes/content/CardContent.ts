@@ -1,11 +1,6 @@
 import type { ReactNode } from "react";
 import type { ContentFormat } from "@/classes";
-
-/** Serialized form of a {@link CardContent}. */
-export interface CardContentData {
-  format: ContentFormat;
-  source: string;
-}
+import type { CardContentDto } from "./CardContentDto";
 
 /**
  * One side of a card (question or answer). Subclasses decide how the raw
@@ -22,7 +17,12 @@ export abstract class CardContent {
     return this.source.trim().length === 0;
   }
 
-  toJSON(): CardContentData {
+  toDto(): CardContentDto {
     return { format: this.format, source: this.source };
+  }
+
+  /** Called by `JSON.stringify`, so stringifying content always yields its DTO. */
+  toJSON(): CardContentDto {
+    return this.toDto();
   }
 }

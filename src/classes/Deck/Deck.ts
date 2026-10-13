@@ -1,12 +1,14 @@
-import { Card, type CardData } from "../Card/Card";
+import { Card } from "../Card/Card";
+import type { CardDto } from "../Card/CardDto";
+import type { DeckDto } from "./DeckDto";
 import { newId, type UUID } from "../types";
 import type { StorageLocation } from "@/storage";
 
 /**
  * Shape of a deck. `C` is the card type: {@link Card} instances by default,
- * or {@link CardData} for the serialized form.
+ * or {@link CardDto} for the DTO.
  */
-export interface IDeck<C extends Card | CardData = Card> {
+export interface IDeck<C extends Card | CardDto = Card> {
   id: UUID;
   name: string;
   belongs_to: UUID | null;
@@ -15,9 +17,6 @@ export interface IDeck<C extends Card | CardData = Card> {
   created_at: number;
   updated_at: number;
 }
-
-/** Serialized form of a {@link Deck}. */
-export type DeckData = IDeck<CardData>;
 
 export type DeckChanges = Partial<Pick<IDeck, "name" | "cards" | "storage">>;
 
@@ -47,8 +46,8 @@ export class Deck implements IDeck {
     return new Deck({ ...deck, id: newId(), created_at: now, updated_at: now });
   }
 
-  static fromJSON(data: DeckData): Deck {
-    return new Deck({ ...data, cards: data.cards.map(Card.fromJSON) });
+  static fromDto(dto: DeckDto): Deck {
+    return new Deck({ ...dto, cards: dto.cards.map(Card.fromDto) });
   }
 
   /** Returns a copy with the given changes applied and `updated_at` bumped. */
@@ -56,7 +55,12 @@ export class Deck implements IDeck {
     return new Deck({ ...this, ...changes, updated_at: Date.now() });
   }
 
-  toJSON(): DeckData {
-    return { ...this, cards: this.cards.map((card) => card.toJSON()) };
+  toDto(): DeckDto {
+    return { ...this, cards: this.cards.map((card) => card.toDto()) };
+  }
+
+  /** Called by `JSON.stringify`, so stringifying a deck always yields its DTO. */
+  toJSON(): DeckDto {
+    return this.toDto();
   }
 }
