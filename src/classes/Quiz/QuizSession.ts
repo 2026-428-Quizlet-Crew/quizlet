@@ -1,5 +1,5 @@
 import type { Card } from "../Card/Card";
-import type { Deck } from "../Deck/Deck";
+import type { BaseDeck } from "../Deck/BaseDeck";
 
 /**
  * Immutable state of a run through a deck. Every transition returns a new
@@ -9,12 +9,12 @@ import type { Deck } from "../Deck/Deck";
  */
 export class QuizSession {
   private constructor(
-    readonly deck: Deck,
+    readonly deck: BaseDeck,
     readonly index: number,
     readonly revealed: boolean,
   ) {}
 
-  static start(deck: Deck): QuizSession {
+  static start(deck: BaseDeck): QuizSession {
     return new QuizSession(deck, 0, false);
   }
 

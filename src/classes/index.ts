@@ -15,7 +15,7 @@ export {
   ContentFormat,
   type ContentFormatInfo,
 } from "./content/ContentFormat";
-export { Deck } from "./Deck/Deck";
+export { BaseDeck } from "./Deck/BaseDeck";
 export type { DeckDto } from "./Deck/DeckDto";
 export { QuizSession } from "./Quiz/QuizSession";
 export {

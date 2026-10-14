@@ -3,7 +3,7 @@ import {
   type CardDto,
   CardType,
   ContentFormat,
-  type Deck,
+  type BaseDeck,
 } from "@/classes";
 
 import { newId } from "@/types/UUID";
@@ -29,7 +29,7 @@ export const DeckDraft = {
     return { name: "", cards: [emptyCardDto()] };
   },
 
-  fromDeck(deck: Deck): DeckDraft {
+  fromDeck(deck: BaseDeck): DeckDraft {
     return { name: deck.name, cards: deck.cards.map((card) => card.toDto()) };
   },
 

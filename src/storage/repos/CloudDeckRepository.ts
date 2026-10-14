@@ -1,5 +1,5 @@
 import type { User } from "@/auth/User";
-import type { Deck } from "@/classes";
+import type { BaseDeck } from "@/classes";
 import type { DeckRepository } from "./DeckRepository";
 import { StorageLocation } from "../StorageLocation";
 
@@ -10,11 +10,11 @@ export class CloudDeckRepository implements DeckRepository {
 
   constructor(private readonly user: User) {}
 
-  async list(): Promise<Deck[]> {
+  async list(): Promise<BaseDeck[]> {
     throw this.notImplemented();
   }
 
-  async get(): Promise<Deck | null> {
+  async get(): Promise<BaseDeck | null> {
     throw this.notImplemented();
   }
 

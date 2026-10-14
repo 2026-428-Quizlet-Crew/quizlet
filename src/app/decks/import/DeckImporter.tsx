@@ -7,7 +7,7 @@ import { useCurrentUser } from "@/auth/AuthProvider";
 import {
   ACCEPTED_DECK_FILES,
   DECK_FILE_FORMATS,
-  Deck,
+  BaseDeck,
   formatForFile,
 } from "@/classes";
 import { buttonStyles } from "@/components/ui";
@@ -51,7 +51,7 @@ const DeckImporter = () => {
         belongs_to: user?.id ?? null,
       });
       for (const dto of result.decks) {
-        await service.save(Deck.fromDto(dto));
+        await service.save(BaseDeck.fromDto(dto));
       }
       if (result.decks.length === 0 && result.errors.length === 0) {
         result.errors.push("The file doesn't contain any decks.");
