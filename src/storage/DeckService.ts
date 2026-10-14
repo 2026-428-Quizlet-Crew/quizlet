@@ -1,6 +1,6 @@
 import type { BaseDeck } from "@/classes";
 import type { DeckRepository } from "./repos/DeckRepository";
-import type { StorageLocation } from "./StorageLocation";
+import type { StorageLocation } from "@/types/StorageLocation";
 import type { UUID } from "@/types/UUID";
 
 /**

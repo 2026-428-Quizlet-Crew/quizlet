@@ -1,7 +1,7 @@
 import { type CardDto } from "../Card/CardDto";
 import { BaseCard } from "../Card/BaseCard";
 import type { UUID } from "@/types/UUID";
-import type { StorageLocation } from "@/storage";
+import type { StorageLocation } from "@/types/StorageLocation";
 
 /**
  * Shape of a deck. `C` is the card type: {@link BaseCard} instances by default,

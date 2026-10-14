@@ -1,5 +1,5 @@
 import type { BaseDeck } from "@/classes";
-import type { StorageLocation } from "../StorageLocation";
+import type { StorageLocation } from "@/types/StorageLocation";
 import type { UUID } from "@/types/UUID";
 
 /** A place decks can be persisted. Async so network-backed stores fit the same shape. */
