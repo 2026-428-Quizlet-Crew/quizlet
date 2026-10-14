@@ -1,4 +1,4 @@
-import type { Card } from "../Card/Card";
+import type { BaseCard } from "../Card/BaseCard";
 import type { BaseDeck } from "../Deck/BaseDeck";
 
 /**
@@ -22,7 +22,7 @@ export class QuizSession {
     return this.deck.cards.length;
   }
 
-  get current(): Card | null {
+  get current(): BaseCard | null {
     return this.deck.cards[this.index] ?? null;
   }
 

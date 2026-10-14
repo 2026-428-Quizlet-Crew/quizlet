@@ -1,6 +1,6 @@
 // Public API of the domain model. CardContent subclasses and their factory are
 // internal: consumers work with Card and the *Dto shapes.
-export { Card } from "./Card/Card";
+export { BaseCard } from "./Card/BaseCard";
 export type { CardDto } from "./Card/CardDto";
 export {
   CARD_TYPE_INFO,

@@ -1,5 +1,5 @@
 import {
-  Card,
+  BaseCard,
   type CardDto,
   CardType,
   ContentFormat,
@@ -10,7 +10,7 @@ import { newId } from "@/types/UUID";
 
 /**
  * Editable, plain-data form of a deck. The editor works on this and only
- * converts to {@link Card} instances when saving.
+ * converts to {@link BaseCard} instances when saving.
  */
 export interface DeckDraft {
   name: string;
@@ -33,8 +33,8 @@ export const DeckDraft = {
     return { name: deck.name, cards: deck.cards.map((card) => card.toDto()) };
   },
 
-  toCards(draft: DeckDraft): Card[] {
-    return draft.cards.map(Card.fromDto);
+  toCards(draft: DeckDraft): BaseCard[] {
+    return draft.cards.map(BaseCard.fromDto);
   },
 
   /** Returns a list of problems; empty when the draft can be saved. */
