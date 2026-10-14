@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { jsonDeckFormat } from "@/classes";
 import { buttonStyles } from "@/components/ui";
 import { useDecks } from "@/hooks/useDecks";
 import { STORAGE_LOCATION_INFO } from "@/storage";
@@ -36,9 +37,13 @@ const DeckList = () => {
             </p>
           </div>
           <div className="flex gap-2">
-            <Link href={`#`} className={buttonStyles.danger}>
+            <button
+              type="button"
+              onClick={() => jsonDeckFormat.export(deck.toDto())}
+              className={buttonStyles.danger}
+            >
               Export
-            </Link>
+            </button>
             <Link
               href={`/decks/${deck.id}/edit`}
               className={buttonStyles.secondary}

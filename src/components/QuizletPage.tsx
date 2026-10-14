@@ -17,12 +17,20 @@ const QuizletPage = <P extends object>({
           <Link href="/" className="font-semibold">
             Quizlet BB
           </Link>
-          <Link
-            href="/decks/new"
-            className="text-sm text-blue-600 hover:underline"
-          >
-            New deck
-          </Link>
+          <div className="flex gap-4">
+            <Link
+              href="/decks/import"
+              className="text-sm text-blue-600 hover:underline"
+            >
+              Import deck
+            </Link>
+            <Link
+              href="/decks/new"
+              className="text-sm text-blue-600 hover:underline"
+            >
+              New deck
+            </Link>
+          </div>
         </nav>
       </header>
       <main className="mx-auto max-w-3xl px-4 py-8">
