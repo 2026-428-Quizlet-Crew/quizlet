@@ -4,7 +4,7 @@ import Link from "next/link";
 import { jsonDeckFormat } from "@/classes";
 import { buttonStyles } from "@/components/ui";
 import { useDecks } from "@/hooks/useDecks";
-import { STORAGE_LOCATION_INFO } from "@/storage";
+import { STORAGE_LOCATION_INFO } from "@/types/StorageLocation";
 
 const DeckList = () => {
   const { decks } = useDecks();

@@ -10,8 +10,8 @@ import { buttonStyles } from "@/components/ui";
 import {
   STORAGE_LOCATION_INFO,
   type StorageLocation,
-  useDeckService,
-} from "@/storage";
+} from "@/types/StorageLocation";
+import { useDeckService } from "@/storage";
 
 interface DeckFormProps {
   /** The deck being edited, or undefined when creating a new one. */

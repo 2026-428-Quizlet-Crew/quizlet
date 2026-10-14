@@ -11,11 +11,11 @@ import {
   formatForFile,
 } from "@/classes";
 import { buttonStyles } from "@/components/ui";
+import { useDeckService } from "@/storage";
 import {
   STORAGE_LOCATION_INFO,
   type StorageLocation,
-  useDeckService,
-} from "@/storage";
+} from "@/types/StorageLocation";
 
 const SUPPORTED = DECK_FILE_FORMATS.map((format) => format.label).join(", ");
 
@@ -86,7 +86,7 @@ const DeckImporter = () => {
           type="file"
           accept={ACCEPTED_DECK_FILES}
           onChange={chooseFile}
-          className="rounded-md border border-slate-300 bg-white p-2 text-sm file:mr-3 file:rounded file:border-0 file:bg-slate-100 file:px-3 file:py-1"
+          className="rounded-md border-slate-300 bg-white p-2 text-sm file:mr-3 file:border-0 file:px-3 file:py-1"
         />
       </label>
 
