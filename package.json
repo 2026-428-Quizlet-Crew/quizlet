@@ -6,10 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint && depcruise . --output-type err-long",
+    "lint": "eslint . ; depcruise . --output-type err-long",
     "graph": "depcruise src --config .dependency-cruiser.js --include-only \"^src\" --output-type dot | dot -T svg > dependency-graph.svg",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test": "jest"
   },
   "dependencies": {
     "next": "^16.4.0",
@@ -18,14 +19,22 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/jest": "^30.0.0",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "dependency-cruiser": "^18.6.0",
     "eslint": "^10.12.0",
     "eslint-config-next": "^16.4.0",
+    "eslint-plugin-jest": "^29.17.0",
+    "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2",
     "prettier": "^3.9.10",
     "tailwindcss": "^4.3.3",
+    "ts-jest": "^29.4.14",
     "typescript": "^6.0.3"
   },
   "packageManager": "pnpm@12.11.2+sha512.25a51652a196785af5f28bda6dfe8dc582ebefa4ac1d180221ce1390231c5fb76637822ea4b6e4633ce74acdcb0a77f725af11bad38177fdeddaee818a955cb9"

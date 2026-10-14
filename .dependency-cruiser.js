@@ -28,6 +28,7 @@ module.exports = {
           "[.]d[.]ts$", // TypeScript declaration files
           "(^|/)tsconfig[.]json$", // TypeScript config
           "(^|/)(?:babel|webpack|postcss)[.]config[.](?:js|cjs|mjs|ts|cts|mts|json)$", // other configs
+          "jest-node-works[.]test[.]ts", // exception for this single test file, which has no imports (and shouldnt)
         ],
       },
       to: {},
