@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { type Card, CARD_TYPE_INFO } from "@/classes";
+import { type BaseCard, CARD_TYPE_INFO } from "@/classes";
 
 interface FaceProps {
   side: string;
@@ -11,7 +11,7 @@ interface FaceProps {
 }
 
 interface FlashcardProps {
-  card: Card;
+  card: BaseCard;
   revealed: boolean;
   onFlip: () => void;
 }

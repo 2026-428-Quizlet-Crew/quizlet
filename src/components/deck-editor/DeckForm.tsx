@@ -3,19 +3,19 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useCurrentUser } from "@/auth/AuthProvider";
-import { type CardDto, Deck } from "@/classes";
+import { type CardDto, BaseDeck } from "@/classes";
 import CardEditor from "./CardEditor";
 import { DeckDraft, emptyCardDto } from "./DeckDraft";
 import { buttonStyles } from "@/components/ui";
 import {
   STORAGE_LOCATION_INFO,
   type StorageLocation,
-  useDeckService,
-} from "@/storage";
+} from "@/types/StorageLocation";
+import { useDeckService } from "@/storage";
 
 interface DeckFormProps {
   /** The deck being edited, or undefined when creating a new one. */
-  existing?: Deck;
+  existing?: BaseDeck;
 }
 
 const DeckForm = ({ existing }: DeckFormProps) => {
@@ -59,7 +59,7 @@ const DeckForm = ({ existing }: DeckFormProps) => {
     };
     const deck = existing
       ? existing.update({ ...changes, storage })
-      : Deck.create({ ...changes, storage, belongs_to: user?.id ?? null });
+      : BaseDeck.create({ ...changes, storage, belongs_to: user?.id ?? null });
 
     run(() => service.save(deck, existing?.storage));
   };

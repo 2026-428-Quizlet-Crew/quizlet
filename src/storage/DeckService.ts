@@ -1,6 +1,7 @@
-import type { Deck, UUID } from "@/classes";
+import type { BaseDeck } from "@/classes";
 import type { DeckRepository } from "./repos/DeckRepository";
-import type { StorageLocation } from "./StorageLocation";
+import type { StorageLocation } from "@/types/StorageLocation";
+import type { UUID } from "@/types/UUID";
 
 /**
  * Single entry point for deck persistence. Routes each deck to the repository
@@ -18,14 +19,14 @@ export class DeckService {
     return [...this.repositories.keys()];
   }
 
-  async list(): Promise<Deck[]> {
+  async list(): Promise<BaseDeck[]> {
     const decks = await Promise.all(
       [...this.repositories.values()].map((repo) => repo.list()),
     );
     return decks.flat().sort((a, b) => b.updated_at - a.updated_at);
   }
 
-  async get(id: UUID): Promise<Deck | null> {
+  async get(id: UUID): Promise<BaseDeck | null> {
     for (const repo of this.repositories.values()) {
       const deck = await repo.get(id);
       if (deck) return deck;
@@ -37,14 +38,14 @@ export class DeckService {
    * Saves the deck to its `storage` location. Pass `previous` when the deck
    * has moved so the old copy is removed.
    */
-  async save(deck: Deck, previous?: StorageLocation): Promise<void> {
+  async save(deck: BaseDeck, previous?: StorageLocation): Promise<void> {
     await this.repository(deck.storage).save(deck);
     if (previous && previous !== deck.storage) {
       await this.repository(previous).delete(deck.id);
     }
   }
 
-  async delete(deck: Deck): Promise<void> {
+  async delete(deck: BaseDeck): Promise<void> {
     await this.repository(deck.storage).delete(deck.id);
   }
 

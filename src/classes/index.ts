@@ -1,6 +1,6 @@
 // Public API of the domain model. CardContent subclasses and their factory are
 // internal: consumers work with Card and the *Dto shapes.
-export { Card } from "./Card/Card";
+export { BaseCard } from "./Card/BaseCard";
 export type { CardDto } from "./Card/CardDto";
 export {
   CARD_TYPE_INFO,
@@ -15,7 +15,19 @@ export {
   ContentFormat,
   type ContentFormatInfo,
 } from "./content/ContentFormat";
-export { Deck } from "./Deck/Deck";
+export { BaseDeck } from "./Deck/BaseDeck";
 export type { DeckDto } from "./Deck/DeckDto";
 export { QuizSession } from "./Quiz/QuizSession";
-export { newId, type UUID } from "./types";
+export {
+  DeckFileFormat,
+  EXCLUDED_DECK_FIELDS,
+  type DeckPlacement,
+  type ImportResult,
+} from "./DeckFile/DeckFileFormat";
+export { JsonDeckFormat } from "./DeckFile/JsonDeckFormat";
+export {
+  ACCEPTED_DECK_FILES,
+  DECK_FILE_FORMATS,
+  formatForFile,
+  jsonDeckFormat,
+} from "./DeckFile/formats";

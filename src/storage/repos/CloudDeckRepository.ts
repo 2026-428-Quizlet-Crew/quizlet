@@ -1,7 +1,7 @@
 import type { User } from "@/auth/User";
-import type { Deck } from "@/classes";
+import type { BaseDeck } from "@/classes";
 import type { DeckRepository } from "./DeckRepository";
-import { StorageLocation } from "@/storage";
+import { StorageLocation } from "@/types/StorageLocation";
 
 /** Placeholder for the future backend. Only constructed for logged-in users. */
 // TODO: Connect to supabase
@@ -10,11 +10,11 @@ export class CloudDeckRepository implements DeckRepository {
 
   constructor(private readonly user: User) {}
 
-  async list(): Promise<Deck[]> {
+  async list(): Promise<BaseDeck[]> {
     throw this.notImplemented();
   }
 
-  async get(): Promise<Deck | null> {
+  async get(): Promise<BaseDeck | null> {
     throw this.notImplemented();
   }
 

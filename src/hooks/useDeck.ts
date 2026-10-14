@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Deck, UUID } from "@/classes";
+import type { BaseDeck } from "@/classes";
 import { useDeckService } from "@/storage";
+import type { UUID } from "@/types/UUID";
 
 export type DeckState =
   | { status: "loading" }
   | { status: "missing" }
-  | { status: "ready"; deck: Deck };
+  | { status: "ready"; deck: BaseDeck };
 
 export const useDeck = (id: UUID): DeckState => {
   const service = useDeckService();

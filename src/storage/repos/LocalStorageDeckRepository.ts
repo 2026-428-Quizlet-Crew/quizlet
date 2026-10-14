@@ -1,6 +1,7 @@
-import { Deck, type DeckDto, type UUID } from "@/classes";
+import { BaseDeck, type DeckDto } from "@/classes";
 import type { DeckRepository } from "./DeckRepository";
-import { StorageLocation } from "@/storage";
+import { StorageLocation } from "@/types/StorageLocation";
+import { type UUID } from "@/types/UUID";
 
 const STORAGE_KEY = "quizlet-bb.decks";
 
@@ -9,16 +10,16 @@ type StoredDeckDtos = Record<UUID, DeckDto>;
 export class LocalStorageDeckRepository implements DeckRepository {
   readonly location = StorageLocation.Local;
 
-  async list(): Promise<Deck[]> {
-    return Object.values(this.read()).map(Deck.fromDto);
+  async list(): Promise<BaseDeck[]> {
+    return Object.values(this.read()).map(BaseDeck.fromDto);
   }
 
-  async get(id: UUID): Promise<Deck | null> {
+  async get(id: UUID): Promise<BaseDeck | null> {
     const dto = this.read()[id];
-    return dto ? Deck.fromDto(dto) : null;
+    return dto ? BaseDeck.fromDto(dto) : null;
   }
 
-  async save(deck: Deck): Promise<void> {
+  async save(deck: BaseDeck): Promise<void> {
     this.write({ ...this.read(), [deck.id]: deck.toDto() });
   }
 
