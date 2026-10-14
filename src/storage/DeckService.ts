@@ -1,6 +1,7 @@
-import type { Deck, UUID } from "@/classes";
+import type { Deck } from "@/classes";
 import type { DeckRepository } from "./repos/DeckRepository";
 import type { StorageLocation } from "./StorageLocation";
+import type { UUID } from "@/types/UUID";
 
 /**
  * Single entry point for deck persistence. Routes each deck to the repository

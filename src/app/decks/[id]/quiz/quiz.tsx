@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
-import { type Deck, QuizSession, type UUID } from "@/classes";
+import { type Deck, QuizSession } from "@/classes";
+import { type UUID } from "@/types/UUID";
 import { Flashcard, QuizControls } from "@/components/quiz";
 import QuizFinished from "./QuizFinished";
 import { useDeck } from "@/hooks/useDeck";

@@ -1,5 +1,6 @@
-import type { Deck, UUID } from "@/classes";
+import type { Deck } from "@/classes";
 import type { StorageLocation } from "../StorageLocation";
+import type { UUID } from "@/types/UUID";
 
 /** A place decks can be persisted. Async so network-backed stores fit the same shape. */
 export interface DeckRepository {

@@ -1,7 +1,7 @@
 import { Card } from "../Card/Card";
 import type { CardDto } from "../Card/CardDto";
 import type { DeckDto } from "./DeckDto";
-import { newId, type UUID } from "../types";
+import { newId, type UUID } from "@/types/UUID";
 import type { StorageLocation } from "@/storage";
 
 /**

@@ -3,7 +3,7 @@ import type { CardDto } from "./CardDto";
 import type { CardContent } from "../content/CardContent";
 import { CardContentFactory } from "../content/CardContentFactory";
 import type { CardContentDto } from "../content/CardContentDto";
-import { newId, type UUID } from "../types";
+import { newId, type UUID } from "@/types/UUID";
 
 /**
  * Shape of a card. `C` is the content type: live {@link CardContent} instances

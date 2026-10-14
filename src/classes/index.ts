@@ -18,7 +18,6 @@ export {
 export { Deck } from "./Deck/Deck";
 export type { DeckDto } from "./Deck/DeckDto";
 export { QuizSession } from "./Quiz/QuizSession";
-export { newId, type UUID } from "./types";
 export {
   DeckFileFormat,
   EXCLUDED_DECK_FIELDS,

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { UUID } from "@/classes";
+import type { UUID } from "@/types/UUID";
 import DeckForm from "./DeckForm";
 import { useDeck } from "@/hooks/useDeck";
 

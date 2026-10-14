@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Deck, UUID } from "@/classes";
+import type { Deck } from "@/classes";
 import { useDeckService } from "@/storage";
+import type { UUID } from "@/types/UUID";
 
 export type DeckState =
   | { status: "loading" }
