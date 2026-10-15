@@ -5,7 +5,7 @@ import type { BaseDeck } from "@/classes";
 import { useDeckService } from "@/storage";
 
 /** All decks the current user can see. `decks` is null while loading. */
-export const useDecks = () => {
+export const useDeckList = () => {
   const service = useDeckService();
   const [decks, setDecks] = useState<BaseDeck[] | null>(null);
 

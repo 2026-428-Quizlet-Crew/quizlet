@@ -2,10 +2,10 @@
 
 import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { useCurrentUser } from "@/auth/AuthProvider";
-import { CloudDeckRepository } from "./repos/CloudDeckRepository";
-import type { DeckRepository } from "./repos/DeckRepository";
-import { DeckService } from "./DeckService";
-import { LocalStorageDeckRepository } from "./repos/LocalStorageDeckRepository";
+import { CloudDeckRepository } from "@/storage";
+import type { DeckRepository } from "@/storage";
+import { DeckService } from "@/service";
+import { LocalStorageDeckRepository } from "@/storage";
 
 const DeckServiceContext = createContext<DeckService | null>(null);
 
@@ -20,14 +20,4 @@ export const DeckServiceProvider = ({ children }: { children: ReactNode }) => {
   }, [user]);
 
   return <DeckServiceContext value={service}>{children}</DeckServiceContext>;
-};
-
-export const useDeckService = (): DeckService => {
-  const service = useContext(DeckServiceContext);
-  if (!service) {
-    throw new Error(
-      "useDeckService must be used inside a DeckServiceProvider.",
-    );
-  }
-  return service;
 };

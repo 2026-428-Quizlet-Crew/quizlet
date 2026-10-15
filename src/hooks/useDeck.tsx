@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { BaseDeck } from "@/classes";
-import { useDeckService } from "@/storage";
+import { useDeckService } from "./DeckServiceProvider";
 import type { UUID } from "@/types/UUID";
 
 export type DeckState =

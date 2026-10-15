@@ -3,7 +3,7 @@ import type { StorageLocation } from "@/types/StorageLocation";
 import type { UUID } from "@/types/UUID";
 
 /** A place decks can be persisted. Async so network-backed stores fit the same shape. */
-export interface DeckRepository {
+interface DeckRepository {
   readonly location: StorageLocation;
   list(): Promise<BaseDeck[]>;
   get(id: UUID): Promise<BaseDeck | null>;

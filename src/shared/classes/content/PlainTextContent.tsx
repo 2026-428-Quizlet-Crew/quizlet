@@ -1,5 +1,5 @@
 import { CardContent } from "./CardContent";
-import { ContentFormat } from "../content/ContentFormat";
+import { ContentFormat } from "./ContentFormat";
 
 export class PlainTextContent extends CardContent {
   readonly format = ContentFormat.Plain;
