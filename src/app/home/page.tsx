@@ -1,5 +1,5 @@
 import QuizletPage from "@/components/QuizletPage";
-import Home from "@/app/home/home";
+import Home from "./home";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

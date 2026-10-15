@@ -11,7 +11,7 @@ interface QuizControlsProps {
   onNext: () => void;
 }
 
-const QuizControls = ({
+export const QuizControls = ({
   position,
   total,
   hasPrevious,
@@ -45,5 +45,3 @@ const QuizControls = ({
     </div>
   );
 };
-
-export default QuizControls;

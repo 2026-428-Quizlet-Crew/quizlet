@@ -8,7 +8,7 @@ interface QuizFinishedProps {
   onRestart: () => void;
 }
 
-const QuizFinished = ({ total, onRestart }: QuizFinishedProps) => {
+const FlashcardsFinished = ({ total, onRestart }: QuizFinishedProps) => {
   return (
     <div className="flex h-72 w-full flex-col items-center justify-center gap-4 rounded-xl border border-slate-200 bg-white p-6 text-center shadow-md">
       <p className="text-2xl font-semibold">You finished the deck!</p>
@@ -31,4 +31,4 @@ const QuizFinished = ({ total, onRestart }: QuizFinishedProps) => {
   );
 };
 
-export default QuizFinished;
+export default FlashcardsFinished;

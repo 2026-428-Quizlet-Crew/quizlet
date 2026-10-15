@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
-import { type BaseDeck, QuizSession } from "@/classes";
-import { type UUID } from "@/types/UUID";
+import { type BaseDeck, QuizSession } from "@/shared/classes";
+import { type UUID } from "@/shared/types/UUID";
 import { Flashcard, QuizControls } from "@/components/quiz";
-import QuizFinished from "./QuizFinished";
+import FlashcardsFinished from "./FlashcardsFinished";
 import { useDeck } from "@/hooks/useDeck";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 
-const QuizRunner = ({ deck }: { deck: BaseDeck }) => {
+const FlashcardRunner = ({ deck }: { deck: BaseDeck }) => {
   const [session, setSession] = useState(() => QuizSession.start(deck));
 
   const flip = useCallback(() => setSession((s) => s.flip()), []);
@@ -46,7 +46,7 @@ const QuizRunner = ({ deck }: { deck: BaseDeck }) => {
           onFlip={flip}
         />
       ) : (
-        <QuizFinished total={session.total} onRestart={restart} />
+        <FlashcardsFinished total={session.total} onRestart={restart} />
       )}
 
       <QuizControls
@@ -66,7 +66,7 @@ const QuizRunner = ({ deck }: { deck: BaseDeck }) => {
   );
 };
 
-const Quiz = ({ deckId }: { deckId: UUID }) => {
+const Flashcards = ({ deckId }: { deckId: UUID }) => {
   const state = useDeck(deckId);
 
   if (state.status === "loading") return <p>Loading…</p>;
@@ -93,7 +93,7 @@ const Quiz = ({ deckId }: { deckId: UUID }) => {
       </p>
     );
   }
-  return <QuizRunner deck={state.deck} />;
+  return <FlashcardRunner deck={state.deck} />;
 };
 
-export default Quiz;
+export default Flashcards;

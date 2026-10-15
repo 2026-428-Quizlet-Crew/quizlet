@@ -1,13 +1,13 @@
 "use client";
 
-import { createContext, useContext, useMemo, type ReactNode } from "react";
+import { createContext, useMemo, type ReactNode } from "react";
 import { useCurrentUser } from "@/auth/AuthProvider";
 import { CloudDeckRepository } from "@/storage";
 import type { DeckRepository } from "@/storage";
 import { DeckService } from "@/service";
 import { LocalStorageDeckRepository } from "@/storage";
 
-const DeckServiceContext = createContext<DeckService | null>(null);
+export const DeckServiceContext = createContext<DeckService | null>(null);
 
 /** Builds the repositories the current user may use: local always, cloud only when logged in. */
 export const DeckServiceProvider = ({ children }: { children: ReactNode }) => {

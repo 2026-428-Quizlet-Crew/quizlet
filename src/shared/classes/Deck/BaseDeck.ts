@@ -1,7 +1,7 @@
 import { BaseCard } from "../Card/BaseCard";
 import type { DeckDto } from "./DeckDto";
-import { newId, type UUID } from "@/types/UUID";
-import type { StorageLocation } from "@/types/StorageLocation";
+import { newId, type UUID } from "../../types/UUID";
+import type { StorageLocation } from "../../types/StorageLocation";
 import { Deck } from "./Deck";
 
 export type DeckChanges = Partial<Pick<Deck, "name" | "cards" | "storage">>;

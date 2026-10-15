@@ -1,7 +1,7 @@
 import type { BaseDeck } from "@/shared/classes";
-import type { DeckRepository } from "../storage/DeckRepository";
-import type { StorageLocation } from "@/types/StorageLocation";
-import type { UUID } from "@/shared/types";
+import type { DeckRepository } from "@/storage";
+import type { StorageLocation } from "@/shared/types/StorageLocation";
+import type { UUID } from "@/shared/types/UUID";
 
 /**
  * Single entry point for deck persistence. Routes each deck to the repository

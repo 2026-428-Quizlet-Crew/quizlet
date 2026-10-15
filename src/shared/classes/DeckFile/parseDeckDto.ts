@@ -3,7 +3,7 @@ import type { CardDto } from "../Card/CardDto";
 import type { CardContentDto } from "../content/CardContentDto";
 import { isContentFormat } from "../content/ContentFormat";
 import type { DeckDto } from "../Deck/DeckDto";
-import { newId } from "@/types/UUID";
+import { newId } from "../../types/UUID";
 import type { DeckPlacement } from "./DeckFileFormat";
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>

@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { type BaseCard, CARD_TYPE_INFO } from "@/classes";
+import { type BaseCard, CARD_TYPE_INFO } from "@/shared/classes";
 
 interface FaceProps {
   side: string;
@@ -39,7 +39,7 @@ const Face = ({ side, badge, back = false, children }: FaceProps) => {
  * `key={card.id}` so moving to another card doesn't animate (and briefly
  * reveal) the new card's answer.
  */
-const Flashcard = ({ card, revealed, onFlip }: FlashcardProps) => {
+export const Flashcard = ({ card, revealed, onFlip }: FlashcardProps) => {
   const badge = CARD_TYPE_INFO[card.type].label;
 
   return (
@@ -64,5 +64,3 @@ const Flashcard = ({ card, revealed, onFlip }: FlashcardProps) => {
     </div>
   );
 };
-
-export default Flashcard;

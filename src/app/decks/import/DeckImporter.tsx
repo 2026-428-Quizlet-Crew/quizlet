@@ -9,13 +9,13 @@ import {
   DECK_FILE_FORMATS,
   BaseDeck,
   formatForFile,
-} from "@/classes";
+} from "@/shared/classes";
 import { buttonStyles } from "@/components/ui";
-import { useDeckService } from "@/storage";
+import { useDeckService } from "@/hooks/useDeckService";
 import {
   STORAGE_LOCATION_INFO,
   type StorageLocation,
-} from "@/types/StorageLocation";
+} from "@/shared/types/StorageLocation";
 
 const SUPPORTED = DECK_FILE_FORMATS.map((format) => format.label).join(", ");
 

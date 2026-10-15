@@ -1,5 +1,5 @@
 import QuizletPage from "@/components/QuizletPage";
-import Quiz from "@/app/decks/[id]/quiz/quiz";
+import Flashcards from "./flashcards";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const Page = async ({ params }: PageProps<"/decks/[id]/quiz">) => {
   const { id } = await params;
-  return <QuizletPage Component={Quiz} deckId={id} />;
+  return <QuizletPage Component={Flashcards} deckId={id} />;
 };
 
 export default Page;

@@ -3,7 +3,7 @@
 // TODO: Replace with supabase logins?
 
 import { createContext, useContext, type ReactNode } from "react";
-import type { User } from "@/auth/User";
+import type { User } from "./User";
 
 const AuthContext = createContext<User | null>(null);
 

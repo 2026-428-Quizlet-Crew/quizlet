@@ -2,7 +2,7 @@ import { CardType, isCardType } from "./CardType";
 import type { CardDto } from "./CardDto";
 import type { CardContent } from "../content/CardContent";
 import { CardContentFactory } from "../content/CardContentFactory";
-import { newId, type UUID } from "@/types/UUID";
+import { newId, type UUID } from "../../types/UUID";
 import { Card } from "./Card";
 
 export class BaseCard implements Card {
