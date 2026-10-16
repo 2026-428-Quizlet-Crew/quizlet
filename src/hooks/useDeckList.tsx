@@ -1,25 +1,25 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { DeckService } from "@/service";
 import type { BaseDeck } from "@/shared/classes";
-import { useDeckService } from "./useDeckService";
+import { useDeckVersion } from "./useDeckVersion";
 
-/** All decks the current user can see. `decks` is null while loading. */
 export const useDeckList = () => {
-  const service = useDeckService();
+  const version = useDeckVersion();
   const [decks, setDecks] = useState<BaseDeck[] | null>(null);
-
-  const reload = useCallback(() => service.list().then(setDecks), [service]);
 
   useEffect(() => {
     let cancelled = false;
-    service.list().then((result) => {
-      if (!cancelled) setDecks(result);
-    });
+    DeckService.getInstance()
+      .list()
+      .then((result) => {
+        if (!cancelled) setDecks(result);
+      });
     return () => {
       cancelled = true;
     };
-  }, [service]);
+  }, [version]);
 
-  return { decks, reload };
+  return { decks };
 };

@@ -1,4 +1,4 @@
-import type { UUID } from "@/shared/types/UUID";
+import type { UUID } from "./UUID";
 
 export interface User {
   id: UUID;

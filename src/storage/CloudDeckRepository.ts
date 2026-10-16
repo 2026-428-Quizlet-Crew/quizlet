@@ -1,4 +1,4 @@
-import type { User } from "@/auth/User";
+import type { User } from "@/shared/types/User";
 import type { BaseDeck } from "@/shared/classes";
 import type { DeckRepository } from "./DeckRepository";
 import { StorageLocation } from "@/shared/types/StorageLocation";

@@ -3,7 +3,7 @@ module.exports = {
   forbidden: [
     // === CUSTOM RULES === //
     {
-      name: "no-improper-dependencies",
+      name: "no-import-app",
       severity: "error",
       comment:
         "app/ should not be imported outside of itself, except for testing purposes.",
@@ -11,7 +11,7 @@ module.exports = {
       to: { path: "^src/app/" },
     },
     {
-      name: "no-improper-dependencies",
+      name: "components-only-from-app",
       severity: "error",
       comment:
         "Only app/ is allowed to import from components/, except for testing purposes.",
@@ -26,7 +26,7 @@ module.exports = {
       to: { path: "^src/components/" },
     },
     {
-      name: "no-improper-dependencies",
+      name: "hooks-only-from-ui",
       severity: "error",
       comment:
         "Only app/ and components/ are allowed to import from hooks/, except for testing purposes.",
@@ -42,14 +42,14 @@ module.exports = {
       to: { path: "^src/hooks/" },
     },
     {
-      name: "no-improper-dependencies",
+      name: "service-only-from-hooks",
       severity: "error",
       comment:
-        "Only hooks/ and components/ are allowed to import from service/, except for testing purposes.",
+        "Only hooks/ is allowed to import from service/, except for testing purposes. " +
+        "components/ and app/ reach services through hooks.",
       from: {
         pathNot: [
           "^src/hooks/",
-          "^src/components/",
           "^src/service",
           "^tests/",
           "\\.test\\.(ts|tsx)$",
@@ -58,7 +58,7 @@ module.exports = {
       to: { path: "^src/service/" },
     },
     {
-      name: "no-improper-dependencies",
+      name: "storage-only-from-service",
       severity: "error",
       comment:
         "Only service/ is allowed to import from storage/, except for testing purposes.",
@@ -73,7 +73,7 @@ module.exports = {
       to: { path: "^src/storage/" },
     },
     {
-      name: "no-improper-dependencies",
+      name: "shared-is-standalone",
       severity: "error",
       comment: "shared/ code should not depend on any code outside of shared/",
       from: {
@@ -83,7 +83,7 @@ module.exports = {
       to: { path: "^src/", pathNot: "^src/shared" },
     },
     {
-      name: "no-improper-dependencies",
+      name: "no-import-tests",
       severity: "error",
       comment:
         "Code that will be deployed cannot depend on test code. If something in tests/ " +

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { AuthProvider } from "@/auth/AuthProvider";
-import { DeckServiceProvider } from "@/hooks/DeckServiceProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,11 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-slate-50 text-slate-900">
-        <AuthProvider>
-          <DeckServiceProvider>{children}</DeckServiceProvider>
-        </AuthProvider>
-      </body>
+      <body className="bg-slate-50 text-slate-900">{children}</body>
     </html>
   );
 }

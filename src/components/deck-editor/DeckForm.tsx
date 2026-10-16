@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useCurrentUser } from "@/auth/AuthProvider";
 import { type CardDto, BaseDeck } from "@/shared/classes";
 import CardEditor from "./CardEditor";
 import { DeckDraft, emptyCardDto } from "./DeckDraft";
@@ -11,7 +10,10 @@ import {
   STORAGE_LOCATION_INFO,
   type StorageLocation,
 } from "@/shared/types/StorageLocation";
-import { useDeckService } from "@/hooks/useDeckService";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useDeleteDeck } from "@/hooks/useDeleteDeck";
+import { useSaveDeck } from "@/hooks/useSaveDeck";
+import { useStorageLocations } from "@/hooks/useStorageLocations";
 
 interface DeckFormProps {
   /** The deck being edited, or undefined when creating a new one. */
@@ -21,7 +23,9 @@ interface DeckFormProps {
 const DeckForm = ({ existing }: DeckFormProps) => {
   const router = useRouter();
   const user = useCurrentUser();
-  const service = useDeckService();
+  const locations = useStorageLocations();
+  const saveDeck = useSaveDeck();
+  const deleteDeck = useDeleteDeck();
   const [draft, setDraft] = useState<DeckDraft>(() =>
     existing ? DeckDraft.fromDeck(existing) : DeckDraft.empty(),
   );
@@ -61,7 +65,7 @@ const DeckForm = ({ existing }: DeckFormProps) => {
       ? existing.update({ ...changes, storage })
       : BaseDeck.create({ ...changes, storage, belongs_to: user?.id ?? null });
 
-    run(() => service.save(deck, existing?.storage));
+    run(() => saveDeck(deck, existing?.storage));
   };
 
   const remove = () => {
@@ -69,7 +73,7 @@ const DeckForm = ({ existing }: DeckFormProps) => {
     if (!window.confirm(`Delete "${existing.name}"? This can't be undone.`)) {
       return;
     }
-    run(() => service.delete(existing));
+    run(() => deleteDeck(existing));
   };
 
   return (
@@ -120,7 +124,7 @@ const DeckForm = ({ existing }: DeckFormProps) => {
       )}
 
       <div className="flex flex-wrap items-center gap-2">
-        {service.locations.map((location) => (
+        {locations.map((location) => (
           <button
             key={location}
             type="button"

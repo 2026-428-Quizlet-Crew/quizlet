@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Quiz",
 };
 
-const Page = async ({ params }: PageProps<"/decks/[id]/quiz">) => {
+const Page = async ({ params }: PageProps<"/decks/[id]/flashcards">) => {
   const { id } = await params;
   return <QuizletPage Component={Flashcards} deckId={id} />;
 };
