@@ -429,13 +429,13 @@ module.exports = {
         // Options to tweak the appearance of your graph. See
         // https://github.com/sverweij/dependency-cruiser/blob/main/doc/options-reference.md#reporteroptions
         // If you don't specify a theme dependency-cruiser falls back to a built-in one.
-        // theme: {
-        //   graph: {
-        //     // splines: 'ortho' - straight lines; slow on big graphs
-        //     // splines: 'true' - bezier curves; fast but not as nice as ortho
-        //     splines: 'true'
-        //   },
-        // },
+        theme: {
+          graph: {
+            // splines: 'ortho' - straight lines; slow on big graphs
+            // splines: 'true' - bezier curves; fast but not as nice as ortho
+            splines: "ortho",
+          },
+        },
       },
       archi: {
         // Pattern of modules to consolidate to.
