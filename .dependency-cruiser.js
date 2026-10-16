@@ -435,6 +435,28 @@ module.exports = {
             // splines: 'true' - bezier curves; fast but not as nice as ortho
             splines: "ortho",
           },
+          modules: [
+            {
+              criteria: { source: "^src/components" },
+              attributes: { fillcolor: "#c6dcf6", color: "#4f86c6" }, // blue
+            },
+            {
+              criteria: { source: "^src/app" },
+              attributes: { fillcolor: "#d9d0f2", color: "#8068c0" }, // violet
+            },
+            {
+              criteria: { source: "^src/hooks" },
+              attributes: { fillcolor: "#c7ebce", color: "#4f9e63" }, // green
+            },
+            {
+              criteria: { source: "^src/service" },
+              attributes: { fillcolor: "#f9d8b8", color: "#d0833a" }, // orange
+            },
+            {
+              criteria: { source: "^src/storage" },
+              attributes: { fillcolor: "#f6cadc", color: "#c4608a" }, // pink
+            },
+          ],
         },
       },
       archi: {
