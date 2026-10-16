@@ -1,6 +1,99 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
   forbidden: [
+    // === CUSTOM RULES === //
+    {
+      name: "no-improper-dependencies",
+      severity: "error",
+      comment:
+        "app/ should not be imported outside of itself, except for testing purposes.",
+      from: { pathNot: ["^src/app/", "^tests/", "\\.test\\.(ts|tsx)$"] },
+      to: { path: "^src/app/" },
+    },
+    {
+      name: "no-improper-dependencies",
+      severity: "error",
+      comment:
+        "Only app/ is allowed to import from components/, except for testing purposes.",
+      from: {
+        pathNot: [
+          "^src/components/",
+          "^src/app",
+          "^tests/",
+          "\\.test\\.(ts|tsx)$",
+        ],
+      },
+      to: { path: "^src/components/" },
+    },
+    {
+      name: "no-improper-dependencies",
+      severity: "error",
+      comment:
+        "Only app/ and components/ are allowed to import from hooks/, except for testing purposes.",
+      from: {
+        pathNot: [
+          "^src/hooks/",
+          "^src/components/",
+          "^src/app",
+          "^tests/",
+          "\\.test\\.(ts|tsx)$",
+        ],
+      },
+      to: { path: "^src/hooks/" },
+    },
+    {
+      name: "no-improper-dependencies",
+      severity: "error",
+      comment:
+        "Only hooks/ and components/ are allowed to import from service/, except for testing purposes.",
+      from: {
+        pathNot: [
+          "^src/hooks/",
+          "^src/components/",
+          "^src/service",
+          "^tests/",
+          "\\.test\\.(ts|tsx)$",
+        ],
+      },
+      to: { path: "^src/service/" },
+    },
+    {
+      name: "no-improper-dependencies",
+      severity: "error",
+      comment:
+        "Only service/ is allowed to import from storage/, except for testing purposes.",
+      from: {
+        pathNot: [
+          "^src/storage/",
+          "^src/service",
+          "^tests/",
+          "\\.test\\.(ts|tsx)$",
+        ],
+      },
+      to: { path: "^src/storage/" },
+    },
+    {
+      name: "no-improper-dependencies",
+      severity: "error",
+      comment: "shared/ code should not depend on any code outside of shared/",
+      from: {
+        path: "^src/shared",
+        pathNot: "\\.test.(ts|tsx)$",
+      },
+      to: { path: "^src/", pathNot: "^src/shared" },
+    },
+    {
+      name: "no-improper-dependencies",
+      severity: "error",
+      comment:
+        "Code that will be deployed cannot depend on test code. If something in tests/ " +
+        "is useful to the app, move it to shared/ or the relevant feature folder.",
+      from: { path: "^src/", pathNot: "\\.test\\.(ts|tsx)$" },
+      to: {
+        path: ["^tests/", "\\.test\\.(ts|tsx)$"],
+      },
+    },
+    // === DEFAULT RULES === //
     {
       name: "no-circular",
       severity: "warn",
