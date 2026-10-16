@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . ; depcruise . --output-type err-long",
-    "graph": "depcruise src --config .dependency-cruiser.js --include-only \"^src\" --output-type dot | dot -T svg > dependency-graph.svg",
+    "lint": "eslint . && depcruise . --output-type err-long",
+    "graph": "./dependency-cruiser.sh",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "jest"

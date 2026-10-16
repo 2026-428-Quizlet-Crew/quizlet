@@ -3,26 +3,21 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type ChangeEvent } from "react";
-import { useCurrentUser } from "@/auth/AuthProvider";
-import {
-  ACCEPTED_DECK_FILES,
-  DECK_FILE_FORMATS,
-  BaseDeck,
-  formatForFile,
-} from "@/classes";
+import { ACCEPTED_DECK_FILES, DECK_FILE_FORMATS } from "@/shared/classes";
 import { buttonStyles } from "@/components/ui";
-import { useDeckService } from "@/storage";
+import { useImportDecks } from "@/hooks/useImportDecks";
+import { useStorageLocations } from "@/hooks/useStorageLocations";
 import {
   STORAGE_LOCATION_INFO,
   type StorageLocation,
-} from "@/types/StorageLocation";
+} from "@/shared/types/StorageLocation";
 
 const SUPPORTED = DECK_FILE_FORMATS.map((format) => format.label).join(", ");
 
 const DeckImporter = () => {
   const router = useRouter();
-  const user = useCurrentUser();
-  const service = useDeckService();
+  const locations = useStorageLocations();
+  const importDecks = useImportDecks();
   const [file, setFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
   const [imported, setImported] = useState(0);
@@ -38,21 +33,10 @@ const DeckImporter = () => {
 
   const importTo = async (storage: StorageLocation) => {
     if (!file) return;
-    const format = formatForFile(file);
-    if (!format) {
-      setErrors([`"${file.name}" isn't a supported file (${SUPPORTED}).`]);
-      return;
-    }
 
     setBusy(true);
     try {
-      const result = await format.import(file, {
-        storage,
-        belongs_to: user?.id ?? null,
-      });
-      for (const dto of result.decks) {
-        await service.save(BaseDeck.fromDto(dto));
-      }
+      const result = await importDecks(file, storage);
       if (result.decks.length === 0 && result.errors.length === 0) {
         result.errors.push("The file doesn't contain any decks.");
       }
@@ -112,7 +96,7 @@ const DeckImporter = () => {
       )}
 
       <div className="flex flex-wrap gap-2">
-        {service.locations.map((location) => (
+        {locations.map((location) => (
           <button
             key={location}
             type="button"

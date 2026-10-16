@@ -5,7 +5,7 @@ import {
   CONTENT_FORMAT_INFO,
   CONTENT_FORMATS,
   type ContentFormat,
-} from "@/classes";
+} from "@/shared/classes";
 
 interface ContentEditorProps {
   label: string;

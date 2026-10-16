@@ -4,9 +4,9 @@ import {
   CardType,
   ContentFormat,
   type BaseDeck,
-} from "@/classes";
+} from "@/shared/classes";
 
-import { newId } from "@/types/UUID";
+import { newId } from "@/shared/types/UUID";
 
 /**
  * Editable, plain-data form of a deck. The editor works on this and only

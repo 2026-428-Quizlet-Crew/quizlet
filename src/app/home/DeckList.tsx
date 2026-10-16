@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { jsonDeckFormat } from "@/classes";
+import { jsonDeckFormat } from "@/shared/classes";
 import { buttonStyles } from "@/components/ui";
-import { useDecks } from "@/hooks/useDecks";
-import { STORAGE_LOCATION_INFO } from "@/types/StorageLocation";
+import { useDeckList } from "@/hooks/useDeckList";
+import { STORAGE_LOCATION_INFO } from "@/shared/types/StorageLocation";
 
 const DeckList = () => {
-  const { decks } = useDecks();
+  const { decks } = useDeckList();
 
   if (decks === null) return <p>Loading decks…</p>;
   if (decks.length === 0) {
@@ -51,10 +51,10 @@ const DeckList = () => {
               Edit
             </Link>
             <Link
-              href={`/decks/${deck.id}/quiz`}
+              href={`/decks/${deck.id}/flashcards`}
               className={buttonStyles.primary}
             >
-              Study
+              Flashcards
             </Link>
           </div>
         </li>

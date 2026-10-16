@@ -5,7 +5,7 @@ import {
   CARD_TYPES,
   type CardDto,
   type CardType,
-} from "@/classes";
+} from "@/shared/classes";
 import ContentEditor from "./ContentEditor";
 
 interface CardEditorProps {

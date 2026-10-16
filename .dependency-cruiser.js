@@ -1,6 +1,99 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
   forbidden: [
+    // === CUSTOM RULES === //
+    {
+      name: "no-import-app",
+      severity: "error",
+      comment:
+        "app/ should not be imported outside of itself, except for testing purposes.",
+      from: { pathNot: ["^src/app/", "^tests/", "\\.test\\.(ts|tsx)$"] },
+      to: { path: "^src/app/" },
+    },
+    {
+      name: "components-only-from-app",
+      severity: "error",
+      comment:
+        "Only app/ is allowed to import from components/, except for testing purposes.",
+      from: {
+        pathNot: [
+          "^src/components/",
+          "^src/app",
+          "^tests/",
+          "\\.test\\.(ts|tsx)$",
+        ],
+      },
+      to: { path: "^src/components/" },
+    },
+    {
+      name: "hooks-only-from-ui",
+      severity: "error",
+      comment:
+        "Only app/ and components/ are allowed to import from hooks/, except for testing purposes.",
+      from: {
+        pathNot: [
+          "^src/hooks/",
+          "^src/components/",
+          "^src/app",
+          "^tests/",
+          "\\.test\\.(ts|tsx)$",
+        ],
+      },
+      to: { path: "^src/hooks/" },
+    },
+    {
+      name: "service-only-from-hooks",
+      severity: "error",
+      comment:
+        "Only hooks/ is allowed to import from service/, except for testing purposes. " +
+        "components/ and app/ reach services through hooks.",
+      from: {
+        pathNot: [
+          "^src/hooks/",
+          "^src/service",
+          "^tests/",
+          "\\.test\\.(ts|tsx)$",
+        ],
+      },
+      to: { path: "^src/service/" },
+    },
+    {
+      name: "storage-only-from-service",
+      severity: "error",
+      comment:
+        "Only service/ is allowed to import from storage/, except for testing purposes.",
+      from: {
+        pathNot: [
+          "^src/storage/",
+          "^src/service",
+          "^tests/",
+          "\\.test\\.(ts|tsx)$",
+        ],
+      },
+      to: { path: "^src/storage/" },
+    },
+    {
+      name: "shared-is-standalone",
+      severity: "error",
+      comment: "shared/ code should not depend on any code outside of shared/",
+      from: {
+        path: "^src/shared",
+        pathNot: "\\.test.(ts|tsx)$",
+      },
+      to: { path: "^src/", pathNot: "^src/shared" },
+    },
+    {
+      name: "no-import-tests",
+      severity: "error",
+      comment:
+        "Code that will be deployed cannot depend on test code. If something in tests/ " +
+        "is useful to the app, move it to shared/ or the relevant feature folder.",
+      from: { path: "^src/", pathNot: "\\.test\\.(ts|tsx)$" },
+      to: {
+        path: ["^tests/", "\\.test\\.(ts|tsx)$"],
+      },
+    },
+    // === DEFAULT RULES === //
     {
       name: "no-circular",
       severity: "warn",
@@ -336,13 +429,35 @@ module.exports = {
         // Options to tweak the appearance of your graph. See
         // https://github.com/sverweij/dependency-cruiser/blob/main/doc/options-reference.md#reporteroptions
         // If you don't specify a theme dependency-cruiser falls back to a built-in one.
-        // theme: {
-        //   graph: {
-        //     // splines: 'ortho' - straight lines; slow on big graphs
-        //     // splines: 'true' - bezier curves; fast but not as nice as ortho
-        //     splines: 'true'
-        //   },
-        // },
+        theme: {
+          graph: {
+            // splines: 'ortho' - straight lines; slow on big graphs
+            // splines: 'true' - bezier curves; fast but not as nice as ortho
+            splines: "ortho",
+          },
+          modules: [
+            {
+              criteria: { source: "^src/components" },
+              attributes: { fillcolor: "#c6dcf6", color: "#4f86c6" }, // blue
+            },
+            {
+              criteria: { source: "^src/app" },
+              attributes: { fillcolor: "#d9d0f2", color: "#8068c0" }, // violet
+            },
+            {
+              criteria: { source: "^src/hooks" },
+              attributes: { fillcolor: "#c7ebce", color: "#4f9e63" }, // green
+            },
+            {
+              criteria: { source: "^src/service" },
+              attributes: { fillcolor: "#f9d8b8", color: "#d0833a" }, // orange
+            },
+            {
+              criteria: { source: "^src/storage" },
+              attributes: { fillcolor: "#f6cadc", color: "#c4608a" }, // pink
+            },
+          ],
+        },
       },
       archi: {
         // Pattern of modules to consolidate to.
