@@ -9,6 +9,7 @@ import { useDeckVersion } from "./useDeckVersion";
 export type DeckState =
   | { status: "loading" }
   | { status: "missing" }
+  | { status: "error"; message: string }
   | { status: "ready"; deck: BaseDeck };
 
 export const useDeck = (id: UUID): DeckState => {
@@ -17,12 +18,22 @@ export const useDeck = (id: UUID): DeckState => {
 
   useEffect(() => {
     let cancelled = false;
+    setState({ status: "loading" });
+
     DeckService.getInstance()
       .get(id)
       .then((deck) => {
         if (cancelled) return;
         setState(deck ? { status: "ready", deck } : { status: "missing" });
+      })
+      .catch((error: unknown) => {
+        if (cancelled) return;
+        setState({
+          status: "error",
+          message: error instanceof Error ? error.message : String(error),
+        });
       });
+
     return () => {
       cancelled = true;
     };

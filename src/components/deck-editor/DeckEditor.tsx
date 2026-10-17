@@ -24,7 +24,19 @@ const ExistingDeckEditor = ({ deckId }: { deckId: UUID }) => {
       </p>
     );
   }
-  return <DeckForm existing={state.deck} />;
+  if (state.status === "error") {
+    return (
+      <p role="alert">
+        Could not load deck: {state.message}.{" "}
+        <Link href="/" className="text-blue-600 hover:underline">
+          Back to decks
+        </Link>
+      </p>
+    );
+  }
+  if (state.status === "ready") {
+    return <DeckForm existing={state.deck} />;
+  }
 };
 
 /** Create/edit page body. Shared by /decks/new and /decks/[id]/edit. */
