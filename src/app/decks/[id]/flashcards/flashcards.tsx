@@ -80,7 +80,17 @@ const Flashcards = ({ deckId }: { deckId: UUID }) => {
       </p>
     );
   }
-  if (state.deck.cards.length === 0) {
+  if (state.status === "error") {
+    return (
+      <p role="alert">
+        Could not load deck: {state.message}.{" "}
+        <Link href="/" className="text-blue-600 hover:underline">
+          Back to decks
+        </Link>
+      </p>
+    );
+  }
+  if (state.status === "ready" && state.deck.cards.length === 0) {
     return (
       <p>
         This deck has no cards yet.{" "}
@@ -93,7 +103,9 @@ const Flashcards = ({ deckId }: { deckId: UUID }) => {
       </p>
     );
   }
-  return <FlashcardRunner deck={state.deck} />;
+  if (state.status === "ready") {
+    return <FlashcardRunner deck={state.deck} />;
+  }
 };
 
 export default Flashcards;
