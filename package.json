@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "devPreinstall": "node install-hooks.cjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -13,9 +12,6 @@
     "format:check": "prettier --check .",
     "test": "jest",
     "prepare": "husky"
-  },
-  "allowScripts": {
-    "postinstall": true
   },
   "dependencies": {
     "next": "^16.4.0",
