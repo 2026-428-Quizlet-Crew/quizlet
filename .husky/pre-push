@@ -16,5 +16,6 @@ if [ "$lint_return_status" -ne 0 ]; then
 	exit 1
 fi
 
+echo "Creating graphs..."
 repo_root="$(git rev-parse --show-toplevel)"
 bash "$repo_root/dependency-cruiser.sh"
