@@ -3,7 +3,7 @@ import Flashcards from "./flashcards";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Quiz",
+  title: "Flashcards",
 };
 
 const Page = async ({ params }: PageProps<"/decks/[id]/flashcards">) => {

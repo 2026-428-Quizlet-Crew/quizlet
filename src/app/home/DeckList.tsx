@@ -5,6 +5,7 @@ import { jsonDeckFormat } from "@/shared/classes";
 import { buttonStyles } from "@/components/ui";
 import { useDeckList } from "@/hooks/useDeckList";
 import { STORAGE_LOCATION_INFO } from "@/shared/types/StorageLocation";
+import StudyMenu from "./StudyMenu";
 
 const DeckList = () => {
   const { decks } = useDeckList();
@@ -50,12 +51,7 @@ const DeckList = () => {
             >
               Edit
             </Link>
-            <Link
-              href={`/decks/${deck.id}/flashcards`}
-              className={buttonStyles.primary}
-            >
-              Flashcards
-            </Link>
+            <StudyMenu deckId={deck.id} />
           </div>
         </li>
       ))}

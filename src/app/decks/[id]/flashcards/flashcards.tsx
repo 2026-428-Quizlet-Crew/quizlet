@@ -6,7 +6,7 @@ import { type BaseDeck, QuizSession } from "@/shared/classes";
 import { type UUID } from "@/shared/types/UUID";
 import { Flashcard, QuizControls } from "@/components/quiz";
 import FlashcardsFinished from "./FlashcardsFinished";
-import { useDeck } from "@/hooks/useDeck";
+import DeckGate from "../DeckGate";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 
 const FlashcardRunner = ({ deck }: { deck: BaseDeck }) => {
@@ -67,45 +67,11 @@ const FlashcardRunner = ({ deck }: { deck: BaseDeck }) => {
 };
 
 const Flashcards = ({ deckId }: { deckId: UUID }) => {
-  const state = useDeck(deckId);
-
-  if (state.status === "loading") return <p>Loading…</p>;
-  if (state.status === "missing") {
-    return (
-      <p>
-        Deck not found.{" "}
-        <Link href="/" className="text-blue-600 hover:underline">
-          Back to decks
-        </Link>
-      </p>
-    );
-  }
-  if (state.status === "error") {
-    return (
-      <p role="alert">
-        Could not load deck: {state.message}.{" "}
-        <Link href="/" className="text-blue-600 hover:underline">
-          Back to decks
-        </Link>
-      </p>
-    );
-  }
-  if (state.status === "ready" && state.deck.cards.length === 0) {
-    return (
-      <p>
-        This deck has no cards yet.{" "}
-        <Link
-          href={`/decks/${deckId}/edit`}
-          className="text-blue-600 hover:underline"
-        >
-          Add some
-        </Link>
-      </p>
-    );
-  }
-  if (state.status === "ready") {
-    return <FlashcardRunner deck={state.deck} />;
-  }
+  return (
+    <DeckGate deckId={deckId}>
+      {(deck) => <FlashcardRunner deck={deck} />}
+    </DeckGate>
+  );
 };
 
 export default Flashcards;
