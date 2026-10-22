@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { useRouter } from "next/navigation";
 import { useImportDecks } from "@/hooks/useImportDecks";
 import { useStorageLocations } from "@/hooks/useStorageLocations";
+import type { DeckDto } from "@/shared/classes";
 import { StorageLocation } from "@/shared/types/StorageLocation";
 import DeckImporter from "./DeckImporter";
 
@@ -22,8 +23,27 @@ const mockedUseRouter = jest.mocked(useRouter);
 const mockedUseImportDecks = jest.mocked(useImportDecks);
 const mockedUseStorageLocations = jest.mocked(useStorageLocations);
 const mockPush = jest.fn();
-const mockImportDecks = jest.fn<ReturnType<ReturnType<typeof useImportDecks>>,
-  Parameters<ReturnType<typeof useImportDecks>>>();
+const mockImportDecks = jest.fn<
+  ReturnType<ReturnType<typeof useImportDecks>>,
+  Parameters<ReturnType<typeof useImportDecks>>
+>();
+
+const importedDeck: DeckDto = {
+  id: "deck-1",
+  name: "Imported Biology",
+  belongs_to: null,
+  storage: StorageLocation.Local,
+  created_at: 1,
+  updated_at: 1,
+  cards: [
+    {
+      id: "card-1",
+      type: "definition",
+      question: { format: "plain", source: "Mitochondria" },
+      answer: { format: "plain", source: "The powerhouse of the cell" },
+    },
+  ],
+};
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -34,7 +54,7 @@ beforeEach(() => {
     push: mockPush,
     replace: jest.fn(),
     prefetch: jest.fn(),
-    bfcacheId: ""
+    bfcacheId: "",
   });
   mockedUseStorageLocations.mockReturnValue([StorageLocation.Local]);
   mockImportDecks.mockResolvedValue({
@@ -58,5 +78,20 @@ describe("DeckImporter tests", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "Test import error",
     );
+  });
+
+  test("imports a non-empty deck and navigates after success", async () => {
+    const user = userEvent.setup();
+    const file = new File(["{}"], "decks.json", { type: "application/json" });
+    mockImportDecks.mockResolvedValue({ decks: [importedDeck], errors: [] });
+
+    render(<DeckImporter />);
+
+    await user.upload(screen.getByLabelText(/Deck file/), file);
+    await user.click(screen.getByRole("button", { name: "Save locally" }));
+
+    expect(mockImportDecks).toHaveBeenCalledWith(file, StorageLocation.Local);
+    expect(mockPush).toHaveBeenCalledWith("/");
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 });
