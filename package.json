@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "devPreinstall": "node install-hooks.cjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -10,7 +11,11 @@
     "graph": "./dependency-cruiser.sh",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky"
+  },
+  "allowScripts": {
+    "postinstall": true
   },
   "dependencies": {
     "next": "^16.4.0",
@@ -18,6 +23,7 @@
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
+    "@hpcc-js/wasm-graphviz": "^1.30.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
@@ -30,6 +36,7 @@
     "eslint": "^10.12.0",
     "eslint-config-next": "^16.4.0",
     "eslint-plugin-jest": "^29.17.0",
+    "husky": "^9.1.7",
     "jest": "^30.5.2",
     "jest-environment-jsdom": "^30.5.2",
     "prettier": "^3.9.10",

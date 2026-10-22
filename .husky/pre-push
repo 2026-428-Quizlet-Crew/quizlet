@@ -1,0 +1,20 @@
+#!/bin/sh
+# Author: Andrew Cambridge
+# Note: I use verbose syntax for capturing status codes from scripts for the sake of clarity in reading the code
+
+pnpm format:check
+format_status=$?
+if [ "$format_status" -ne 0 ]; then
+	echo "Formatting error. Please run pnpm format and commit the changes before pushing again"
+	exit 1;
+fi
+
+pnpm lint
+lint_return_status=$?
+if [ "$lint_return_status" -ne 0 ]; then
+	echo "Linting failed with exit code: $lint_return_status"
+	exit 1
+fi
+
+repo_root="$(git rev-parse --show-toplevel)"
+bash "$repo_root/dependency-cruiser.sh"

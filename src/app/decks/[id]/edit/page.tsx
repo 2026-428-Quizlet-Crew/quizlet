@@ -1,6 +1,5 @@
 import QuizletPage from "@/components/QuizletPage";
-// import { DeckEditor } from "@/components/deck-editor";
-import DeckEditor from "@/components/deck-editor/DeckEditor";
+import { DeckEditor } from "@/components/deck-editor";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
