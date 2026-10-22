@@ -215,9 +215,6 @@ importers:
       eslint-plugin-jest:
         specifier: ^29.17.0
         version: 29.17.0(@typescript-eslint/eslint-plugin@8.71.2(@typescript-eslint/parser@8.71.2(eslint@10.12.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint@10.12.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint@10.12.0(jiti@2.7.0)(supports-color@7.2.0))(jest@30.5.2(@types/node@26.6.5)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)
-      husky:
-        specifier: ^9.1.7
-        version: 9.1.7
       jest:
         specifier: ^30.5.2
         version: 30.5.2(@types/node@26.6.5)(supports-color@7.2.0)
@@ -2172,11 +2169,6 @@ packages:
   human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
-
-  husky@9.1.7:
-    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
-    engines: {node: '>=18'}
-    hasBin: true
 
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
@@ -5648,8 +5640,6 @@ snapshots:
       - supports-color
 
   human-signals@2.1.0: {}
-
-  husky@9.1.7: {}
 
   iconv-lite@0.6.3:
     dependencies:
