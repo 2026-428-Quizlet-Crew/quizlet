@@ -7,9 +7,9 @@ import type { UUID } from "@/shared/types/UUID";
 import { useDeckVersion } from "./useDeckVersion";
 
 export type DeckResult =
-    | { status: "missing" }
-    | { status: "error"; message: string }
-    | { status: "ready"; deck: BaseDeck };
+  | { status: "missing" }
+  | { status: "error"; message: string }
+  | { status: "ready"; deck: BaseDeck };
 
 export type DeckState = { status: "loading" } | DeckResult;
 
@@ -46,6 +46,6 @@ export const useDeck = (id: UUID): DeckState => {
   }, [id, version]);
 
   return result?.id === id && result.version === version
-      ? result.state
-      : { status: "loading" };
+    ? result.state
+    : { status: "loading" };
 };
