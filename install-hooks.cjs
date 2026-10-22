@@ -1,8 +1,8 @@
-const fs = require('node:fs');
-const path = require('node:path');
+const fs = require("node:fs");
+const path = require("node:path");
 
-const source = path.join(__dirname, '.githooks');
-const destination = path.join(__dirname, '.git', 'hooks');
+const source = path.join(__dirname, ".githooks");
+const destination = path.join(__dirname, ".git", "hooks");
 
 fs.mkdirSync(destination, { recursive: true });
 
