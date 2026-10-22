@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 
 echo "Creating graphs..."
 repo_root="$(git rev-parse --show-toplevel)"
