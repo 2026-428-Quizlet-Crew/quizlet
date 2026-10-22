@@ -54,6 +54,7 @@ const makeFile = (contents: string): File => {
 
 beforeEach(() => {
   jest.clearAllMocks();
+  mockPush.mockReset();
   local = new FakeRepository(StorageLocation.Local);
   DeckService.resetForTests({
     auth: AuthService.resetForTests(),
@@ -72,9 +73,27 @@ beforeEach(() => {
 });
 
 describe("DeckImporter tests (JSON)", () => {
-  test("shows an error for a file that cannot be parsed", async () => {
+  test("navigates after a successful import", async () => {
     const user = userEvent.setup();
-    const file = makeFile("not JSON");
+    const file = makeFile(
+      JSON.stringify({
+        version: 1,
+        decks: [{ name: "Imported deck", cards: [] }],
+      }),
+    );
+
+    render(<DeckImporter />);
+
+    await user.upload(screen.getByLabelText(/Deck file/), file);
+    await user.click(screen.getByRole("button", { name: "Save locally" }));
+
+    expect(mockPush).toHaveBeenCalledWith("/");
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  test("does not navigate after a failed import", async () => {
+    const user = userEvent.setup();
+    const file = makeFile("not valid JSON");
 
     render(<DeckImporter />);
 
@@ -125,5 +144,168 @@ describe("DeckImporter tests (JSON)", () => {
     expect(mockPush).toHaveBeenCalledWith("/");
     expect(local.decks.size).toBe(1);
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  test("shows an error for a file that contains no decks", async () => {
+    const user = userEvent.setup();
+    const file = makeFile(
+      JSON.stringify({
+        version: 1,
+        decks: [],
+      }),
+    );
+
+    render(<DeckImporter />);
+
+    await user.upload(screen.getByLabelText(/Deck file/), file);
+    await user.click(screen.getByRole("button", { name: "Save locally" }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "The file doesn't contain any decks.",
+    );
+    expect(mockPush).not.toHaveBeenCalled();
+  });
+
+  test("parses and saves multiple decks from a file", async () => {
+    const user = userEvent.setup();
+    const file = makeFile(
+      JSON.stringify({
+        version: 1,
+        decks: [
+          {
+            name: "Imported Biology",
+            cards: [
+              {
+                type: "definition",
+                question: { format: "plain", source: "Mitochondria" },
+                answer: {
+                  format: "plain",
+                  source: "The powerhouse of the cell",
+                },
+              },
+              {
+                type: "definition",
+                question: { format: "plain", source: "Ribosome" },
+                answer: {
+                  format: "plain",
+                  source: "Site of protein synthesis",
+                },
+              },
+            ],
+          },
+          {
+            name: "Imported Chemistry",
+            cards: [
+              {
+                type: "definition",
+                question: { format: "plain", source: "Covalent bond" },
+                answer: {
+                  format: "plain",
+                  source: "A bond formed by shared electron pairs",
+                },
+              },
+            ],
+          },
+        ],
+      }),
+    );
+
+    mockPush.mockImplementation(() => {
+      const importedDecks = Object.fromEntries(
+        [...local.decks.values()].map((deck) => [
+          deck.name,
+          deck.cards.map((card) => ({
+            type: card.type,
+            question: card.question.source,
+            answer: card.answer.source,
+          })),
+        ]),
+      );
+
+      expect(importedDecks).toEqual({
+        "Imported Biology": [
+          {
+            type: "definition",
+            question: "Mitochondria",
+            answer: "The powerhouse of the cell",
+          },
+          {
+            type: "definition",
+            question: "Ribosome",
+            answer: "Site of protein synthesis",
+          },
+        ],
+        "Imported Chemistry": [
+          {
+            type: "definition",
+            question: "Covalent bond",
+            answer: "A bond formed by shared electron pairs",
+          },
+        ],
+      });
+    });
+
+    render(<DeckImporter />);
+
+    await user.upload(screen.getByLabelText(/Deck file/), file);
+    await user.click(screen.getByRole("button", { name: "Save locally" }));
+
+    expect(mockPush).toHaveBeenCalledWith("/");
+    expect(local.decks.size).toBe(2);
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
+  test("shows an error for a file that is not valid JSON", async () => {
+    const user = userEvent.setup();
+    const file = makeFile("not valid JSON");
+
+    render(<DeckImporter />);
+
+    await user.upload(screen.getByLabelText(/Deck file/), file);
+    await user.click(screen.getByRole("button", { name: "Save locally" }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "The file is not valid JSON.",
+    );
+    expect(mockPush).not.toHaveBeenCalled();
+  });
+
+  test("shows an error for a file that contains a deck with an invalid card", async () => {
+    const user = userEvent.setup();
+    const file = makeFile(
+      JSON.stringify({
+        version: 1,
+        decks: [
+          {
+            name: "Imported Biology",
+            cards: [
+              {
+                type: "definition",
+                question: { format: "plain", source: "Mitochondria" },
+                answer: {
+                  format: "plain",
+                  source: "The powerhouse of the cell",
+                },
+              },
+              {
+                type: "definition",
+                question: { format: "plain", source: "Ribosome" },
+                answer: { format: "plain" },
+              },
+            ],
+          },
+        ],
+      }),
+    );
+
+    render(<DeckImporter />);
+
+    await user.upload(screen.getByLabelText(/Deck file/), file);
+    await user.click(screen.getByRole("button", { name: "Save locally" }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      'Deck 1, card 2 answer needs a text "source".',
+    );
+    expect(mockPush).not.toHaveBeenCalled();
   });
 });
