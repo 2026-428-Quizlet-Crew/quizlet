@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const Page = async ({ params }: PageProps<"/decks/[id]/edit">) => {
   const { id } = await params;
-  return <QuizletPage Component={DeckEditor} deckId={id} />;
+  return < QuizletPage Component={DeckEditor} deckId={id} / >;
 };
 
 export default Page;
