@@ -1,7 +1,27 @@
 #!/bin/bash
 
-echo "Creating graphs..."
-repo_root="$(git rev-parse --show-toplevel)"
-bash "$repo_root/dependency-cruiser.sh"
+graphs() {
+    echo "Creating graphs..."
+    repo_root="$(git rev-parse --show-toplevel)"
+    bash "$repo_root/dependency-cruiser.sh"
+}
 
-git add graphs
+format() {
+    pnpm format:check
+    format_status=$?
+    if [ "$format_status" -ne 0 ]; then
+        echo "Formatting error found, formatting now"
+        pnpm format
+    fi
+}
+
+graphs &
+gpid=$!
+
+format &
+fpid=$!
+
+wait fpid
+wait gpid
+
+git add graphs src/**/*.ts src/**/*.tsx
