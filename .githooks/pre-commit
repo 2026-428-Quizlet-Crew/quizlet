@@ -21,7 +21,7 @@ gpid=$!
 format &
 fpid=$!
 
-wait fpid
-wait gpid
+wait "$fpid"
+wait "$gpid"
 
 git add graphs src/**/*.ts src/**/*.tsx
