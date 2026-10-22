@@ -25,4 +25,4 @@ wait "$fpid"
 echo "Waiting for graphs to finish..."
 wait "$gpid"
 
-git add graphs src/**/*.ts src/**/*.tsx
+git add graphs src/**/*.ts src/**/*.tsx .github/workflows
