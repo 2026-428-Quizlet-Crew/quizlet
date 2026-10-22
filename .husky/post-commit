@@ -1,0 +1,9 @@
+!#/bin/bash
+
+echo "Creating graphs..."
+repo_root="$(git rev-parse --show-toplevel)"
+bash "$repo_root/dependency-cruiser.sh"
+
+echo "Committing..."
+git add graphs/*
+git commit -m "saving graphs"
