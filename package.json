@@ -11,7 +11,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "jest",
-    "prepare": "node install-hooks.cjs"
+    "prepare": "node install-hooks.mjs"
   },
   "dependencies": {
     "next": "^16.4.0",

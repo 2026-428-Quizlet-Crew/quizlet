@@ -1,5 +1,8 @@
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const source = path.join(__dirname, ".githooks");
 const destination = path.join(__dirname, ".git", "hooks");
