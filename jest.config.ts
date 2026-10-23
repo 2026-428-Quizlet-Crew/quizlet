@@ -10,6 +10,9 @@ const createJestConfig = nextJest({ dir: "./" });
 
 const universalConfig: Config = {
   clearMocks: true,
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1",
+  },
 };
 
 const nodeProject = createJestConfig({
