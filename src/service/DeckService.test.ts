@@ -5,6 +5,7 @@ import { newId, type UUID } from "@/shared/types/UUID";
 import type { DeckRepository } from "@/storage";
 import { AuthService } from "./auth/AuthService";
 import { DeckService } from "./DeckService";
+import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 
 /** In-memory repository so tests never touch localStorage or the network. */
 class FakeRepository implements DeckRepository {
