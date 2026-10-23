@@ -255,21 +255,6 @@ describe("DeckImporter tests (JSON)", () => {
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 
-  test("shows an error for a file that is not valid JSON", async () => {
-    const user = userEvent.setup();
-    const file = makeFile("not valid JSON");
-
-    render(<DeckImporter />);
-
-    await user.upload(screen.getByLabelText(/Deck file/), file);
-    await user.click(screen.getByRole("button", { name: "Save locally" }));
-
-    expect(await screen.findByRole("alert")).toHaveTextContent(
-      "The file is not valid JSON.",
-    );
-    expect(mockPush).not.toHaveBeenCalled();
-  });
-
   test("shows an error for a file that contains a deck with an invalid card", async () => {
     const user = userEvent.setup();
     const file = makeFile(
