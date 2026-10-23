@@ -19,6 +19,18 @@ export { BaseDeck } from "./Deck/BaseDeck";
 export type { DeckDto } from "./Deck/DeckDto";
 export { QuizSession } from "./Quiz/QuizSession";
 export {
+  QuizAttempt,
+  type MissedCard,
+  type QuizResults,
+} from "./Quiz/QuizAttempt";
+export { CARD_GRADERS, CardGrader } from "./Quiz/CardGrader";
+export {
+  STAR_RATINGS,
+  type CardResponse,
+  type Grade,
+  type StarRating,
+} from "./Quiz/Grade";
+export {
   DeckFileFormat,
   EXCLUDED_DECK_FIELDS,
   type DeckPlacement,
