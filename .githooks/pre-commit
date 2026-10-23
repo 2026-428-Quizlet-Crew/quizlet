@@ -1,0 +1,28 @@
+#!/bin/bash
+
+graphs() {
+    echo "Starting graphs..."
+    repo_root="$(git rev-parse --show-toplevel)"
+    bash "$repo_root/dependency-cruiser.sh"
+}
+
+format() {
+    pnpm format:check
+    format_status=$?
+    if [ "$format_status" -ne 0 ]; then
+        echo "Formatting error found, formatting now"
+        pnpm format
+    fi
+}
+
+graphs &
+gpid=$!
+
+format &
+fpid=$!
+
+wait "$fpid"
+echo "Waiting for graphs to finish..."
+wait "$gpid"
+
+git add graphs src/**/*.ts src/**/*.tsx .github/workflows
