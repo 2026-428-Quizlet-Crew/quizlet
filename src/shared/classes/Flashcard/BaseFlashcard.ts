@@ -1,33 +1,25 @@
 import { CardType, isCardType } from "./CardType";
-import type { CardDto } from "./CardDto";
+import type { FlashcardDto } from "./FlashcardDto";
 import type { CardContent } from "../content/CardContent";
 import { CardContentFactory } from "../content/CardContentFactory";
-import { newId, type UUID } from "../../types/UUID";
-import { Card } from "./Card";
+import { type UUID } from "../../types/UUID";
+import { Flashcard } from "./Flashcard";
 
-export class BaseCard implements Card {
+export class BaseFlashcard implements Flashcard {
   readonly id: UUID;
   readonly question: CardContent;
   readonly answer: CardContent;
   readonly type: CardType;
 
-  constructor({ id, question, answer, type }: Card) {
+  constructor({ id, question, answer, type }: Flashcard) {
     this.id = id;
     this.question = question;
     this.answer = answer;
     this.type = type;
   }
 
-  static create(
-    question: CardContent,
-    answer: CardContent,
-    type: CardType = CardType.Definition,
-  ): BaseCard {
-    return new BaseCard({ id: newId(), question, answer, type });
-  }
-
-  static fromDto(dto: CardDto): BaseCard {
-    return new BaseCard({
+  static fromDto(dto: FlashcardDto): BaseFlashcard {
+    return new BaseFlashcard({
       id: dto.id,
       question: CardContentFactory.fromDto(dto.question),
       answer: CardContentFactory.fromDto(dto.answer),
@@ -35,7 +27,7 @@ export class BaseCard implements Card {
     });
   }
 
-  toDto(): CardDto {
+  toDto(): FlashcardDto {
     return {
       id: this.id,
       question: this.question.toDto(),
@@ -45,7 +37,7 @@ export class BaseCard implements Card {
   }
 
   /** Called by `JSON.stringify`, so stringifying a card always yields its DTO. */
-  toJSON(): CardDto {
+  toJSON(): FlashcardDto {
     return this.toDto();
   }
 }

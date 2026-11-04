@@ -1,5 +1,5 @@
-import type { BaseCard } from "../Card/BaseCard";
-import type { BaseDeck } from "../Deck/BaseDeck";
+import { Deck } from "@/shared/classes/Deck/Deck";
+import { Flashcard } from "@/shared/classes/Flashcard/Flashcard";
 
 /**
  * Immutable state of a run through a deck. Every transition returns a new
@@ -7,22 +7,22 @@ import type { BaseDeck } from "../Deck/BaseDeck";
  *
  * `index === total` means the deck is finished.
  */
-export class QuizSession {
+export class StudySession {
   private constructor(
-    readonly deck: BaseDeck,
+    readonly deck: Deck,
     readonly index: number,
     readonly revealed: boolean,
   ) {}
 
-  static start(deck: BaseDeck): QuizSession {
-    return new QuizSession(deck, 0, false);
+  static start(deck: Deck): StudySession {
+    return new StudySession(deck, 0, false);
   }
 
   get total(): number {
     return this.deck.cards.length;
   }
 
-  get current(): BaseCard | null {
+  get current(): Flashcard | null {
     return this.deck.cards[this.index] ?? null;
   }
 
@@ -38,22 +38,22 @@ export class QuizSession {
     return !this.isFinished;
   }
 
-  flip(): QuizSession {
+  flip(): StudySession {
     if (this.isFinished) return this;
-    return new QuizSession(this.deck, this.index, !this.revealed);
+    return new StudySession(this.deck, this.index, !this.revealed);
   }
 
-  next(): QuizSession {
+  next(): StudySession {
     if (!this.hasNext) return this;
-    return new QuizSession(this.deck, this.index + 1, false);
+    return new StudySession(this.deck, this.index + 1, false);
   }
 
-  previous(): QuizSession {
+  previous(): StudySession {
     if (!this.hasPrevious) return this;
-    return new QuizSession(this.deck, this.index - 1, false);
+    return new StudySession(this.deck, this.index - 1, false);
   }
 
-  restart(): QuizSession {
-    return QuizSession.start(this.deck);
+  restart(): StudySession {
+    return StudySession.start(this.deck);
   }
 }

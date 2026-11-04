@@ -1,10 +1,11 @@
 "use client";
 
-import { type BaseCard, CARD_TYPE_INFO } from "@/shared/classes";
+import { CARD_TYPE_INFO } from "@/shared/classes";
 import { FlipCard } from "./FlipCard";
+import { Flashcard } from "@/shared/classes/Flashcard/Flashcard";
 
 interface FlashcardProps {
-  card: BaseCard;
+  card: Flashcard;
   revealed: boolean;
   onFlip: () => void;
 }
@@ -14,7 +15,7 @@ interface FlashcardProps {
  * `key={card.id}` so moving to another card doesn't animate (and briefly
  * reveal) the new card's answer.
  */
-export const Flashcard = ({ card, revealed, onFlip }: FlashcardProps) => {
+export const FlashcardFC = ({ card, revealed, onFlip }: FlashcardProps) => {
   return (
     <FlipCard
       badge={CARD_TYPE_INFO[card.type].label}
