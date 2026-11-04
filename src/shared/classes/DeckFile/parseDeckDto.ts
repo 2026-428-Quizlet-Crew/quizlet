@@ -1,5 +1,5 @@
-import { isCardType } from "../Card/CardType";
-import type { CardDto } from "../Card/CardDto";
+import { isCardType } from "@/shared/classes/Flashcard/CardType";
+import type { FlashcardDto } from "@/shared/classes/Flashcard/FlashcardDto";
 import type { CardContentDto } from "../content/CardContentDto";
 import { isContentFormat } from "../content/ContentFormat";
 import type { DeckDto } from "../Deck/DeckDto";
@@ -29,7 +29,7 @@ const parseCard = (
   value: unknown,
   where: string,
   errors: string[],
-): CardDto | null => {
+): FlashcardDto | null => {
   if (!isRecord(value)) {
     errors.push(`${where} is not an object.`);
     return null;
@@ -77,7 +77,7 @@ export const parseDeckDto = (
       ...placement,
       id: newId(),
       name,
-      cards: cards as CardDto[],
+      cards: cards as FlashcardDto[],
       created_at: now,
       updated_at: now,
     },

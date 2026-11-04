@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { BaseCard, CardType } from "@/shared/classes";
+import { BaseFlashcard, CardType } from "@/shared/classes";
 import { newId } from "@/shared/types/UUID";
 import { QuizCard } from "./QuizCard";
 
-const card = BaseCard.fromDto({
+const card = BaseFlashcard.fromDto({
   id: newId(),
   question: { format: "plain", source: "Powerhouse of the cell" },
   answer: { format: "plain", source: "Mitochondria" },

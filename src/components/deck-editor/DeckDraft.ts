@@ -1,6 +1,6 @@
 import {
-  BaseCard,
-  type CardDto,
+  BaseFlashcard,
+  type FlashcardDto,
   CardType,
   ContentFormat,
   type BaseDeck,
@@ -10,14 +10,14 @@ import { newId } from "@/shared/types/UUID";
 
 /**
  * Editable, plain-data form of a deck. The editor works on this and only
- * converts to {@link BaseCard} instances when saving.
+ * converts to {@link BaseFlashcard} instances when saving.
  */
 export interface DeckDraft {
   name: string;
-  cards: CardDto[];
+  cards: FlashcardDto[];
 }
 
-export const emptyCardDto = (): CardDto => ({
+export const emptyCardDto = (): FlashcardDto => ({
   id: newId(),
   type: CardType.Definition,
   question: { format: ContentFormat.Plain, source: "" },
@@ -33,8 +33,8 @@ export const DeckDraft = {
     return { name: deck.name, cards: deck.cards.map((card) => card.toDto()) };
   },
 
-  toCards(draft: DeckDraft): BaseCard[] {
-    return draft.cards.map(BaseCard.fromDto);
+  toCards(draft: DeckDraft): BaseFlashcard[] {
+    return draft.cards.map(BaseFlashcard.fromDto);
   },
 
   /** Returns a list of problems; empty when the draft can be saved. */

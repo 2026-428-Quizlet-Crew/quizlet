@@ -1,12 +1,12 @@
-import type { BaseCard } from "../Card/BaseCard";
-import { CardType } from "../Card/CardType";
-import type { BaseDeck } from "../Deck/BaseDeck";
+import { CardType } from "@/shared/classes/Flashcard/CardType";
 import type { UUID } from "../../types/UUID";
 import { CARD_GRADERS } from "./CardGrader";
 import type { CardResponse, Grade } from "./Grade";
+import { Flashcard } from "@/shared/classes/Flashcard/Flashcard";
+import { Deck } from "@/shared/classes/Deck/Deck";
 
 export interface MissedCard {
-  card: BaseCard;
+  card: Flashcard;
   response: CardResponse;
 }
 
@@ -18,13 +18,13 @@ export interface QuizResults {
 
 export class QuizAttempt {
   private constructor(
-    readonly deck: BaseDeck,
-    readonly cards: readonly BaseCard[],
+    readonly deck: Deck,
+    readonly cards: readonly Flashcard[],
     readonly index: number,
     readonly responses: ReadonlyMap<UUID, CardResponse>,
   ) {}
 
-  static start(deck: BaseDeck): QuizAttempt {
+  static start(deck: Deck): QuizAttempt {
     const cards = deck.cards.filter(
       (card) => CARD_GRADERS[card.type].quizzable,
     );
@@ -35,7 +35,7 @@ export class QuizAttempt {
     return this.cards.length;
   }
 
-  get current(): BaseCard | null {
+  get current(): Flashcard | null {
     return this.cards[this.index] ?? null;
   }
 
@@ -137,7 +137,7 @@ export class QuizAttempt {
     return results;
   }
 
-  private withResponse(card: BaseCard, response: CardResponse): QuizAttempt {
+  private withResponse(card: Flashcard, response: CardResponse): QuizAttempt {
     const responses = new Map(this.responses).set(card.id, response);
     return new QuizAttempt(this.deck, this.cards, this.index, responses);
   }

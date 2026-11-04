@@ -1,16 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import {
-  type BaseCard,
-  CARD_TYPE_INFO,
-  type CardResponse,
-} from "@/shared/classes";
+import { CARD_TYPE_INFO, type CardResponse } from "@/shared/classes";
 import { buttonStyles } from "@/components/ui";
 import { FlipCard } from "./FlipCard";
+import { Flashcard } from "@/shared/classes/Flashcard/Flashcard";
 
 interface QuizCardProps {
-  card: BaseCard;
+  card: Flashcard;
   response: CardResponse | null;
   onSubmit: (answer: string) => void;
 }

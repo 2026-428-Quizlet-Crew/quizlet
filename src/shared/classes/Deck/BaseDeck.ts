@@ -1,4 +1,4 @@
-import { BaseCard } from "../Card/BaseCard";
+import { BaseFlashcard } from "@/shared/classes/Flashcard/BaseFlashcard";
 import type { DeckDto } from "./DeckDto";
 import { newId, type UUID } from "../../types/UUID";
 import type { StorageLocation } from "../../types/StorageLocation";
@@ -11,7 +11,7 @@ export class BaseDeck implements Deck {
   readonly name: string;
   readonly belongs_to: UUID | null;
   readonly storage: StorageLocation;
-  readonly cards: BaseCard[];
+  readonly cards: BaseFlashcard[];
   readonly created_at: number;
   readonly updated_at: number;
 
@@ -38,7 +38,10 @@ export class BaseDeck implements Deck {
   }
 
   static fromDto(dto: DeckDto): BaseDeck {
-    return new BaseDeck({ ...dto, cards: dto.cards.map(BaseCard.fromDto) });
+    return new BaseDeck({
+      ...dto,
+      cards: dto.cards.map(BaseFlashcard.fromDto),
+    });
   }
 
   /** Returns a copy with the given changes applied and `updated_at` bumped. */
