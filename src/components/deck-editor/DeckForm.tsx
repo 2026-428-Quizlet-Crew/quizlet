@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { type CardDto, BaseDeck } from "@/shared/classes";
+import { type FlashcardDto, BaseDeck } from "@/shared/classes";
 import CardEditor from "./CardEditor";
 import { DeckDraft, emptyCardDto } from "./DeckDraft";
 import { buttonStyles } from "@/components/ui";
@@ -32,7 +32,7 @@ const DeckForm = ({ existing }: DeckFormProps) => {
   const [errors, setErrors] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
 
-  const updateCard = (index: number, card: CardDto) =>
+  const updateCard = (index: number, card: FlashcardDto) =>
     setDraft((d) => ({ ...d, cards: d.cards.with(index, card) }));
 
   const removeCard = (index: number) =>

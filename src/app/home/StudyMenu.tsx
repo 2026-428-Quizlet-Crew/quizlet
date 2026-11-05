@@ -6,7 +6,6 @@ import { type UUID } from "@/shared/types/UUID";
 
 const itemStyles = "block px-4 py-2 text-sm text-slate-800 hover:bg-slate-100";
 
-
 const StudyMenu = ({ deckId }: { deckId: UUID }) => {
   return (
     <details name="study-menu" className="relative">

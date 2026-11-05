@@ -3,15 +3,15 @@
 import {
   CARD_TYPE_INFO,
   CARD_TYPES,
-  type CardDto,
+  type FlashcardDto,
   type CardType,
 } from "@/shared/classes";
 import ContentEditor from "./ContentEditor";
 
 interface CardEditorProps {
   index: number;
-  card: CardDto;
-  onChange: (card: CardDto) => void;
+  card: FlashcardDto;
+  onChange: (card: FlashcardDto) => void;
   onRemove: () => void;
 }
 

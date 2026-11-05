@@ -1,9 +1,14 @@
-import { BaseCard, BaseDeck, CardType, QuizAttempt } from "@/shared/classes";
+import {
+  BaseFlashcard,
+  BaseDeck,
+  CardType,
+  QuizAttempt,
+} from "@/shared/classes";
 import { StorageLocation } from "@/shared/types/StorageLocation";
 import { newId } from "@/shared/types/UUID";
 
 const card = (type: CardType, question: string, answer: string) =>
-  BaseCard.fromDto({
+  BaseFlashcard.fromDto({
     id: newId(),
     question: { format: "plain", source: question },
     answer: { format: "plain", source: answer },
@@ -22,7 +27,7 @@ const concept = card(
 );
 const fn = card(CardType.Function, "x + 1 where x = 2", "3");
 
-const deckOf = (...cards: BaseCard[]) =>
+const deckOf = (...cards: BaseFlashcard[]) =>
   BaseDeck.create({
     name: "Biology",
     cards,

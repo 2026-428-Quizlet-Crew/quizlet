@@ -2,8 +2,8 @@
 
 import { useCallback } from "react";
 import { DeckService } from "@/service";
-import type { BaseDeck } from "@/shared/classes";
 import type { StorageLocation } from "@/shared/types/StorageLocation";
+import { BaseDeck } from "@/shared/classes";
 
 /** Returns a function that saves a deck to its `storage` location. Pass `previous` if the deck moved. */
 export const useSaveDeck = () =>

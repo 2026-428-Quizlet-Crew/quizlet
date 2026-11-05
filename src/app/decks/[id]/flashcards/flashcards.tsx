@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
-import { type BaseDeck, QuizSession } from "@/shared/classes";
+import { type BaseDeck, StudySession } from "@/shared/classes";
 import { type UUID } from "@/shared/types/UUID";
-import { Flashcard, QuizControls } from "@/components/quiz";
+import { FlashcardFC, QuizControls } from "@/components/quiz";
 import FlashcardsFinished from "./FlashcardsFinished";
 import DeckGate from "../DeckGate";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 
 const FlashcardRunner = ({ deck }: { deck: BaseDeck }) => {
-  const [session, setSession] = useState(() => QuizSession.start(deck));
+  const [session, setSession] = useState(() => StudySession.start(deck));
 
   const flip = useCallback(() => setSession((s) => s.flip()), []);
   const next = useCallback(() => setSession((s) => s.next()), []);
@@ -39,7 +39,7 @@ const FlashcardRunner = ({ deck }: { deck: BaseDeck }) => {
       </div>
 
       {card ? (
-        <Flashcard
+        <FlashcardFC
           key={card.id}
           card={card}
           revealed={session.revealed}
