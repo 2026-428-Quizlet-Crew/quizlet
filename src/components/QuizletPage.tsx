@@ -5,12 +5,12 @@ import { buttonStyles } from "@/components/ui";
 type QuizletPageProps<P extends object> = {
   Component: ComponentType<P>;
   title?: string;
-  isHome?: boolean;
+  showHomeLink?: boolean;
 } & P;
 
 const QuizletPage = <P extends object>({
   Component,
-  isHome = false,
+  showHomeLink = true,
   ...props
 }: QuizletPageProps<P>) => {
   return (
@@ -21,7 +21,7 @@ const QuizletPage = <P extends object>({
             Quizlet BB
           </Link>
           <div className="flex items-center gap-4">
-            {!isHome && (
+            {showHomeLink && (
               <Link href="/" className={buttonStyles.secondary}>
                 Home
               </Link>

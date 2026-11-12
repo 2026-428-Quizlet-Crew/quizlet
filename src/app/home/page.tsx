@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 const Page = () => {
-  return <QuizletPage Component={Home} isHome />;
+  return <QuizletPage Component={Home} showHomeLink={false} />;
 };
 
 export default Page;

@@ -14,7 +14,7 @@ describe("QuizletPage", () => {
   });
 
   test("hides the Home link on the home page", () => {
-    render(<QuizletPage Component={PageContent} isHome />);
+    render(<QuizletPage Component={PageContent} showHomeLink={false} />);
 
     expect(
       screen.queryByRole("link", { name: "Home" }),
