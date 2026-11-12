@@ -1,13 +1,16 @@
 import Link from "next/link";
 import type { ComponentType } from "react";
+import { buttonStyles } from "@/components/ui";
 
 type QuizletPageProps<P extends object> = {
   Component: ComponentType<P>;
   title?: string;
+  isHome?: boolean;
 } & P;
 
 const QuizletPage = <P extends object>({
   Component,
+  isHome = false,
   ...props
 }: QuizletPageProps<P>) => {
   return (
@@ -17,7 +20,12 @@ const QuizletPage = <P extends object>({
           <Link href="/" className="font-semibold">
             Quizlet BB
           </Link>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-4">
+            {!isHome && (
+              <Link href="/" className={buttonStyles.secondary}>
+                Home
+              </Link>
+            )}
             <Link
               href="/decks/import"
               className="text-sm text-blue-600 hover:underline"
