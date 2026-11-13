@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { ComponentType } from "react";
-import { buttonStyles } from "@/components/ui";
 
 type QuizletPageProps<P extends object> = {
   Component: ComponentType<P>;
@@ -22,7 +21,7 @@ const QuizletPage = <P extends object>({
           </Link>
           <div className="flex items-center gap-4">
             {showHomeLink && (
-              <Link href="/" className={buttonStyles.secondary}>
+              <Link href="/" className="text-sm text-blue-600 hover:underline">
                 Home
               </Link>
             )}
