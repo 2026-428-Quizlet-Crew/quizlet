@@ -4,10 +4,12 @@ import type { ComponentType } from "react";
 type QuizletPageProps<P extends object> = {
   Component: ComponentType<P>;
   title?: string;
+  showHomeLink?: boolean;
 } & P;
 
 const QuizletPage = <P extends object>({
   Component,
+  showHomeLink = true,
   ...props
 }: QuizletPageProps<P>) => {
   return (
@@ -17,7 +19,12 @@ const QuizletPage = <P extends object>({
           <Link href="/" className="font-semibold">
             Quizlet BB
           </Link>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-4">
+            {showHomeLink && (
+              <Link href="/" className="text-sm text-blue-600 hover:underline">
+                Home
+              </Link>
+            )}
             <Link
               href="/decks/import"
               className="text-sm text-blue-600 hover:underline"
