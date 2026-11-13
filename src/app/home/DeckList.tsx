@@ -28,8 +28,13 @@ const DeckList = () => {
       {decks.map((deck) => (
         <li
           key={deck.id}
-          className="flex items-center justify-between gap-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm"
+          className="relative flex items-center justify-between gap-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm"
         >
+          <Link
+            href={`/decks/${deck.id}/edit`}
+            aria-label={`Edit ${deck.name}`}
+            className="absolute inset-0 z-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          />
           <div>
             <p className="font-semibold">{deck.name}</p>
             <p className="text-sm text-slate-500">
@@ -37,7 +42,7 @@ const DeckList = () => {
               {STORAGE_LOCATION_INFO[deck.storage].label}
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="relative z-10 flex gap-2">
             <button
               type="button"
               onClick={() => jsonDeckFormat.export(deck.toDto())}
