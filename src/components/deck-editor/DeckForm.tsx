@@ -5,7 +5,7 @@ import { useState } from "react";
 import { type CardDto, BaseDeck } from "@/shared/classes";
 import CardEditor from "./CardEditor";
 import { DeckDraft, emptyCardDto } from "./DeckDraft";
-import { buttonStyles } from "@/components/ui";
+import { buttonStyles, ConfirmDialog } from "@/components/ui";
 import {
   STORAGE_LOCATION_INFO,
   type StorageLocation,
@@ -31,6 +31,7 @@ const DeckForm = ({ existing }: DeckFormProps) => {
   );
   const [errors, setErrors] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const updateCard = (index: number, card: CardDto) =>
     setDraft((d) => ({ ...d, cards: d.cards.with(index, card) }));
@@ -70,9 +71,6 @@ const DeckForm = ({ existing }: DeckFormProps) => {
 
   const remove = () => {
     if (!existing) return;
-    if (!window.confirm(`Delete "${existing.name}"? This can't be undone.`)) {
-      return;
-    }
     run(() => deleteDeck(existing));
   };
 
@@ -139,13 +137,25 @@ const DeckForm = ({ existing }: DeckFormProps) => {
           <button
             type="button"
             disabled={busy}
-            onClick={remove}
+            onClick={() => setShowConfirm(true)}
             className={`${buttonStyles.danger} ml-auto`}
           >
             Delete deck
           </button>
         )}
       </div>
+
+      {showConfirm && existing && (
+        <ConfirmDialog
+          message={`Delete "${existing.name}"? This can't be undone.`}
+          confirmLabel="Delete deck"
+          onConfirm={() => {
+            setShowConfirm(false);
+            remove();
+          }}
+          onCancel={() => setShowConfirm(false)}
+        />
+      )}
     </form>
   );
 };
