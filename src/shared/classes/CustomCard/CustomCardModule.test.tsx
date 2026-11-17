@@ -1,4 +1,4 @@
-import {screen} from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type {
   CardActions,
@@ -8,8 +8,8 @@ import type {
   FlashcardData,
   HostToCard,
 } from "@/shared/classes";
-import type {Json} from "@/shared/types/Json";
-import {newId} from "@/shared/types/UUID";
+import type { Json } from "@/shared/types/Json";
+import { newId } from "@/shared/types/UUID";
 
 // A sample custom card type, written the way an author would inside the iframe.
 
