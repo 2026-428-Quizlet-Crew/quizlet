@@ -8,6 +8,26 @@ export {
   CardType,
   type CardTypeInfo,
 } from "@/shared/classes/Flashcard/CardType";
+// New card model. Replaces Flashcard/ once definition and concept move to it.
+export type {
+  EditProps,
+  Flashcard,
+  QuizBackProps,
+  QuizFrontProps,
+  StudyProps,
+} from "./Card/Flashcard";
+export type { CardTypeDefinition } from "./Card/CardTypeDefinition";
+export type { CardTypeId, FlashcardData } from "./Card/FlashcardData";
+export type { GradeResult } from "./Card/GradeResult";
+export type { RenderContext } from "./Card/RenderContext";
+export type { ValidationIssue } from "./Card/ValidationIssue";
+export type { CardToHost, HostToCard } from "./CustomCard/CardMessages";
+export type { CardView, CardViewState } from "./CustomCard/CardViewState";
+export type { CustomCardManifest } from "./CustomCard/CustomCardManifest";
+export type {
+  CardActions,
+  CustomCardModule,
+} from "./CustomCard/CustomCardModule";
 export type { CardContentDto } from "./content/CardContentDto";
 export {
   CONTENT_FORMAT_INFO,
